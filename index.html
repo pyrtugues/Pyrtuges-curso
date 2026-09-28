@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pyrtugues — Aprenda Programação em Português</title>
+<title>Pyrtugues — Aprenda Programação em Português · v4</title>
 <meta name="theme-color" content="#7c3aed">
-<meta name="description" content="Aprenda programação em português com tradução automática para Python.">
+<meta name="description" content="Aprenda programação em português com tradução para Python, exercícios, XP, badges e certificado.">
+<meta name="color-scheme" content="dark">
 <meta property="og:title" content="Pyrtugues - Programação em Português">
 <meta property="og:description" content="Aprenda lógica de programação de forma divertida e em português!">
 <link rel="manifest" href='data:application/json,{"name":"Pyrtugues","short_name":"Pyrtugues","start_url":".","display":"standalone","background_color":"#0a0a0a","theme_color":"#7c3aed","icons":[{"src":"https://api.dicebear.com/7.x/shapes/svg?seed=pyrtugues","sizes":"512x512","type":"image/svg+xml"}]}'>
@@ -43,6 +44,9 @@ tailwind.config = {
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
+*{box-sizing:border-box}
+button,input,textarea{font:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid rgba(167,139,250,.85);outline-offset:2px}
 .btn-3d{position:relative;border-bottom-width:3px;transition:all .1s ease;font-weight:800;letter-spacing:.02em}
 .btn-3d:active:not(:disabled){transform:translateY(2px);border-bottom-width:1px}
 .btn-3d:disabled{opacity:.5;cursor:not-allowed}
@@ -59,6 +63,9 @@ tailwind.config = {
 @keyframes slide-up{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
 @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(124,58,237,.3)}50%{box-shadow:0 0 40px rgba(124,58,237,.6)}}
 @keyframes bounce-soft{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes xp-pop{0%{transform:translateY(4px);opacity:0}30%{opacity:1}100%{transform:translateY(-18px);opacity:0}}
+.xp-pop{position:fixed;right:24px;top:84px;z-index:70;color:#fde68a;font-weight:900;pointer-events:none;animation:xp-pop 1s ease-out forwards}
+@media print{body{background:#fff!important}.no-print{display:none!important}#certModal{display:block!important;position:static!important;background:#fff!important;padding:0!important;backdrop-filter:none!important}#certModal>div{max-width:none!important;width:100%!important}#certModal>div>button{display:none!important}#certificadoCard{box-shadow:none!important;min-height:100vh!important;border-width:3px!important}body>*:not(#certModal){visibility:hidden!important}#certModal,#certModal *{visibility:visible!important}}
 .animate-pop{animation:pop-in .3s cubic-bezier(.16,1,.3,1)}
 .animate-slide-up{animation:slide-up .4s cubic-bezier(.16,1,.3,1)}
 .animate-glow{animation:glow 2s ease-in-out infinite}
@@ -69,25 +76,28 @@ tailwind.config = {
 
 <header id="mainHeader" class="bg-ink-800/95 backdrop-blur-lg border-b border-pyr-900/40 sticky top-0 z-30 px-3 sm:px-4 py-2.5 flex items-center justify-between">
   <div class="flex items-center gap-2">
-    <button onclick="toggleSidebar()" class="p-2 rounded-xl hover:bg-ink-700 text-pyr-400 transition-colors" title="Menu"><i class="fa-solid fa-bars text-lg"></i></button>
+    <button onclick="toggleSidebar()" class="p-2 rounded-xl hover:bg-ink-700 text-pyr-400 transition-colors" title="Menu" aria-label="Abrir menu"><i class="fa-solid fa-bars text-lg"></i></button>
     <div onclick="mudarSecao('home')" class="flex items-center gap-2 cursor-pointer select-none">
       <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-pyr-500 to-pyr-700 flex items-center justify-center shadow-lg shadow-pyr-500/30">
         <i class="fa-solid fa-code text-white"></i>
       </div>
       <div class="hidden sm:block">
         <span class="font-black text-lg tracking-tight bg-gradient-to-r from-pyr-300 to-pyr-500 bg-clip-text text-transparent">Pyrtugues</span>
-        <span class="text-[10px] bg-pyr-500/20 text-pyr-300 px-1.5 py-0.5 rounded-md border border-pyr-500/30 font-bold ml-1">v3.1</span>
+        <span class="text-[10px] bg-pyr-500/20 text-pyr-300 px-1.5 py-0.5 rounded-md border border-pyr-500/30 font-bold ml-1">v4.0</span>
       </div>
     </div>
   </div>
   <div class="flex items-center gap-1.5 sm:gap-2">
+    <div class="hidden sm:flex items-center gap-1.5 bg-ink-700 border-2 border-pyr-500/40 px-2.5 py-1.5 rounded-2xl text-xs font-black text-pyr-300" title="Nível atual">
+      <i class="fa-solid fa-star text-pyr-400"></i><span>NÍVEL <span id="userLevel">1</span></span>
+    </div>
     <div id="streakBadge" class="flex items-center gap-1.5 bg-ink-700 border-2 border-orange-500/40 px-2.5 py-1.5 rounded-2xl text-xs sm:text-sm font-black text-orange-400">
       <i class="fa-solid fa-fire text-orange-500"></i><span id="streakCount">1</span>
     </div>
     <div class="flex items-center gap-1.5 bg-ink-700 border-2 border-yellow-500/40 px-2.5 py-1.5 rounded-2xl text-xs sm:text-sm font-black text-yellow-400">
       <i class="fa-solid fa-bolt"></i><span id="userXP">0</span>
     </div>
-    <button onclick="toggleSom()" id="btnSound" class="p-2 rounded-xl hover:bg-ink-700 text-pyr-400 transition-colors" title="Som"><i class="fa-solid fa-volume-high"></i></button>
+    <button onclick="toggleSom()" id="btnSound" class="p-2 rounded-xl hover:bg-ink-700 text-pyr-400 transition-colors" title="Som" aria-label="Ativar ou desativar som"><i class="fa-solid fa-volume-high"></i></button>
     <button onclick="toggleModoFoco()" class="p-2 rounded-xl hover:bg-ink-700 text-pyr-400 transition-colors hidden sm:block" title="Modo Foco"><i class="fa-solid fa-expand"></i></button>
     <div class="relative">
       <button onclick="toggleMenuConfig(event)" class="p-2 rounded-xl hover:bg-ink-700 text-pyr-400 transition-colors" title="Config"><i class="fa-solid fa-gear"></i></button>
@@ -143,7 +153,7 @@ tailwind.config = {
     <div class="p-3 m-2 bg-gradient-to-br from-pyr-900/40 to-ink-700 rounded-2xl border-2 border-pyr-700/40">
       <div class="flex items-center justify-between mb-2">
         <span class="text-xs font-black text-pyr-300 flex items-center gap-1.5"><i class="fa-solid fa-bullseye text-red-400"></i>Missão Diária</span>
-        <span class="text-[10px] text-yellow-400 font-black">+100 XP</span>
+        <span class="text-[10px] text-yellow-400 font-black">+100 XP 1×/dia</span>
       </div>
       <div class="flex items-center justify-between text-[11px] font-bold text-slate-300 mb-1.5">
         <span>2 lições hoje</span><span id="m1Prog">0/2</span>
@@ -235,9 +245,12 @@ tailwind.config = {
           <span id="lessonCategory" class="text-xs font-black text-pyr-400 uppercase tracking-widest">Módulo 1</span>
           <h2 id="lessonTitle" class="text-2xl sm:text-3xl font-black text-white mt-1">Lição</h2>
         </div>
-        <span id="saveStatusIndicator" class="text-xs text-pyr-300 font-bold flex items-center gap-1.5 bg-ink-800 px-3 py-1.5 rounded-full border-2 border-pyr-900/50">
-          <span class="w-2 h-2 rounded-full bg-pyr-400"></span> Salvo
-        </span>
+        <div class="flex items-center gap-2">
+          <span id="lessonRunStatus" class="text-[11px] text-yellow-300 font-bold bg-yellow-500/10 px-3 py-1.5 rounded-full border-2 border-yellow-500/20">+15 XP na 1ª execução</span>
+          <span id="saveStatusIndicator" class="text-xs text-pyr-300 font-bold flex items-center gap-1.5 bg-ink-800 px-3 py-1.5 rounded-full border-2 border-pyr-900/50">
+            <span class="w-2 h-2 rounded-full bg-pyr-400"></span> Salvo
+          </span>
+        </div>
       </div>
 
       <div id="lessonBody" class="bg-ink-800 rounded-2xl p-5 sm:p-6 border-2 border-pyr-900/40 text-slate-300 space-y-3 text-base leading-relaxed"></div>
@@ -268,6 +281,7 @@ tailwind.config = {
       <div id="quizContainer" class="bg-gradient-to-br from-pyr-900/30 to-ink-800 border-2 border-pyr-700/40 rounded-2xl p-5 space-y-4 hidden">
         <h3 class="font-black text-lg text-pyr-200 flex items-center gap-2"><i class="fa-solid fa-circle-question text-pyr-400"></i> DESAFIO</h3>
         <p id="quizQuestion" class="text-slate-200 font-bold text-base"></p>
+        <p id="quizStatus" class="text-[11px] text-pyr-300 font-bold"></p>
         <div id="quizOptions" class="space-y-2"></div>
         <div id="quizFeedback" class="hidden p-4 rounded-xl text-sm font-black text-center"></div>
       </div>
@@ -320,7 +334,17 @@ tailwind.config = {
             <span class="bg-yellow-500/20 border-2 border-yellow-500/40 px-3 py-1 rounded-full text-xs font-black text-yellow-300"><i class="fa-solid fa-bolt mr-1"></i><span id="perfilXP">0</span> XP</span>
             <span class="bg-orange-500/20 border-2 border-orange-500/40 px-3 py-1 rounded-full text-xs font-black text-orange-300"><i class="fa-solid fa-fire mr-1"></i><span id="perfilStreak">1</span> DIAS</span>
             <span class="bg-pyr-500/20 border-2 border-pyr-500/40 px-3 py-1 rounded-full text-xs font-black text-pyr-200"><i class="fa-solid fa-check-double mr-1"></i><span id="perfilConcluidas">0</span>/30</span>
+            <span class="bg-blue-500/20 border-2 border-blue-500/40 px-3 py-1 rounded-full text-xs font-black text-blue-200"><i class="fa-solid fa-star mr-1"></i>Nível <span id="perfilNivel">1</span></span>
           </div>
+        </div>
+      </div>
+      <div class="bg-ink-800 border-2 border-pyr-900/40 rounded-2xl p-5">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-black text-pyr-300 uppercase"><i class="fa-solid fa-star mr-1"></i> Nível <span id="perfilNivelResumo">1</span></span>
+          <span id="xpLevelLabel" class="text-[11px] text-slate-400 font-bold">0/250 XP para o próximo nível</span>
+        </div>
+        <div class="w-full bg-ink-900 rounded-full h-3 p-0.5 border-2 border-pyr-900/50">
+          <div id="xpLevelBar" class="bg-gradient-to-r from-pyr-500 to-pyr-300 h-full rounded-full w-0 transition-all duration-700"></div>
         </div>
       </div>
       <div class="bg-ink-800 border-2 border-pyr-900/40 rounded-2xl p-6 text-center">
@@ -424,7 +448,7 @@ tailwind.config = {
 // ============================================================
 
 const DICIONARIO = {
-  "senão se": "elif", "senãose": "elif", "senão": "else",
+  "senão se": "elif", "senão-se": "elif", "senãose": "elif", "senão": "else",
   "enquanto verdadeiro": "while True", "enquanto": "while",
   "para cada": "for", "para": "for", "se": "if", "em": "in",
   "quebrar": "break", "continuar": "continue", "passar": "pass",
@@ -786,13 +810,37 @@ function traduzirPyrtugues(codigo) {
 // ============================================================
 // ESTADO
 // ============================================================
+const hojeISO = () => new Date().toISOString().split('T')[0];
 const DEFAULT_STATE = {
-  xp:0, streak:1, ultimoAcesso:new Date().toISOString().split('T')[0],
+  version:4, xp:0, streak:1, ultimoAcesso:hojeISO(),
   licaoAtual:"l1", licoesConcluidas:[], anotacoes:{}, somAtivo:true,
-  historicoDatas:[new Date().toISOString().split('T')[0]],
-  missoes:{ data:new Date().toISOString().split('T')[0], licoesHoje:0 }
+  historicoDatas:[hojeISO()],
+  missoes:{ data:hojeISO(), licoesHoje:0, recompensada:false },
+  quizAcertos:[], quizTentativas:{}, execucoesXP:{}, certificado:null
 };
 let estado = { ...DEFAULT_STATE };
+
+function normalizarEstadoAtual(dados) {
+  const s = { ...DEFAULT_STATE, ...(dados || {}) };
+  s.xp = Number.isFinite(Number(s.xp)) ? Math.max(0, Number(s.xp)) : 0;
+  s.streak = Number.isFinite(Number(s.streak)) ? Math.max(1, Math.floor(Number(s.streak))) : 1;
+  s.licaoAtual = LICOES.some(l => l.id === s.licaoAtual) ? s.licaoAtual : "l1";
+  s.licoesConcluidas = Array.isArray(s.licoesConcluidas) ? [...new Set(s.licoesConcluidas.filter(id => LICOES.some(l => l.id === id)))] : [];
+  s.quizAcertos = Array.isArray(s.quizAcertos) ? [...new Set(s.quizAcertos.filter(id => LICOES.some(l => l.id === id)))] : [];
+  s.quizTentativas = s.quizTentativas && typeof s.quizTentativas === 'object' ? s.quizTentativas : {};
+  s.execucoesXP = s.execucoesXP && typeof s.execucoesXP === 'object' ? s.execucoesXP : {};
+  s.anotacoes = s.anotacoes && typeof s.anotacoes === 'object' ? s.anotacoes : {};
+  const hoje = hojeISO();
+  s.missoes = s.missoes && typeof s.missoes === 'object' ? s.missoes : { data:hoje, licoesHoje:0, recompensada:false };
+  s.missoes.licoesHoje = Math.min(2, Math.max(0, Number(s.missoes.licoesHoje) || 0));
+  s.missoes.recompensada = Boolean(s.missoes.recompensada);
+  s.historicoDatas = Array.isArray(s.historicoDatas) ? [...new Set(s.historicoDatas)].slice(-60) : [hoje];
+  s.version = 4;
+  return s;
+}
+
+function nivelPorXP(xp) { return Math.max(1, Math.floor(xp / 250) + 1); }
+function xpNoNivel(xp) { return xp % 250; }
 
 // ============================================================
 // 30 LIÇÕES COM QUIZZES CORRETOS
@@ -841,9 +889,22 @@ const BADGES = [
 
 let pyodide = null, editorLicao = null, editorSandbox = null, audioCtx = null, inputResolver = null;
 
-function salvarEstado() { localStorage.setItem('pyrtugues_v3', JSON.stringify(estado)); }
+function salvarEstado() {
+  try {
+    estado = normalizarEstadoAtual(estado);
+    localStorage.setItem('pyrtugues_v3', JSON.stringify(estado));
+  } catch(e) {
+    console.warn('Não foi possível salvar o progresso local.', e);
+  }
+}
 function carregarEstado() {
-  try { const s = localStorage.getItem('pyrtugues_v3'); if (s) estado = { ...DEFAULT_STATE, ...JSON.parse(s) }; } catch(e){}
+  try {
+    const s = localStorage.getItem('pyrtugues_v3');
+    if (s) estado = normalizarEstadoAtual(JSON.parse(s));
+    else estado = normalizarEstadoAtual(DEFAULT_STATE);
+  } catch(e) {
+    estado = normalizarEstadoAtual(DEFAULT_STATE);
+  }
 }
 function processarStreak() {
   const hoje = new Date().toISOString().split('T')[0];
@@ -859,7 +920,7 @@ function processarStreak() {
 }
 function processarMissoes() {
   const hoje = new Date().toISOString().split('T')[0];
-  if (estado.missoes.data !== hoje) { estado.missoes = { data:hoje, licoesHoje:0 }; salvarEstado(); }
+  if (estado.missoes.data !== hoje) { estado.missoes = { data:hoje, licoesHoje:0, recompensada:false }; salvarEstado(); }
 }
 function tocarSom(tipo) {
   if (!estado.somAtivo) return;
@@ -914,6 +975,7 @@ function abrirLicao(id) {
     setTimeout(() => editorLicao.refresh(), 150);
   }
   renderizarQuiz(l.quiz);
+  atualizarStatusExecucao();
   renderizarListaLicoes();
   renderizarHeader();
 }
@@ -951,6 +1013,41 @@ function renderizarListaLicoes(filtro = "") {
   });
 }
 function filtrarLicoes() { renderizarListaLicoes(document.getElementById('searchInput').value); }
+function obterBadgesDesbloqueadas() {
+  return BADGES.filter(b => {
+    if (b.id === "b1") return estado.licoesConcluidas.length >= 1;
+    if (b.id === "b2") return ["l6","l7","l8","l9","l10"].every(x => estado.licoesConcluidas.includes(x));
+    if (b.id === "b3") return estado.streak >= 7;
+    if (b.id === "b4") return ["l28","l29","l30"].every(x => estado.licoesConcluidas.includes(x));
+    if (b.id === "b5") return estado.licoesConcluidas.length >= 30;
+    if (b.id === "b6") return estado.quizAcertos.length >= 30;
+    return false;
+  });
+}
+
+function atualizarStatusExecucao() {
+  const el = document.getElementById('lessonRunStatus');
+  if (!el) return;
+  const id = estado.licaoAtual;
+  if (estado.execucoesXP[id]) {
+    el.textContent = '✓ XP de execução já recebido';
+    el.className = 'text-[11px] text-grn-300 font-bold bg-grn-500/10 px-3 py-1.5 rounded-full border-2 border-grn-500/20';
+  } else {
+    el.textContent = '+15 XP na 1ª execução';
+    el.className = 'text-[11px] text-yellow-300 font-bold bg-yellow-500/10 px-3 py-1.5 rounded-full border-2 border-yellow-500/20';
+  }
+}
+
+function mostrarGanharXP(qtd) {
+  const old = document.querySelector('.xp-pop');
+  if (old) old.remove();
+  const el = document.createElement('div');
+  el.className = 'xp-pop';
+  el.textContent = `+${qtd} XP`;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1000);
+}
+
 function renderizarHeader() {
   document.getElementById('userXP').textContent = estado.xp;
   document.getElementById('streakCount').textContent = estado.streak;
@@ -959,17 +1056,35 @@ function renderizarHeader() {
   document.getElementById('perfilConcluidas').textContent = estado.licoesConcluidas.length;
   document.getElementById('homeCompletedCount').textContent = `${estado.licoesConcluidas.length}/30`;
   document.getElementById('homeXpCount').textContent = estado.xp;
-  document.getElementById('homeBadgeCount').textContent = `${estado.badges?.length || 0}/6`;
+  const badges = obterBadgesDesbloqueadas();
+  document.getElementById('homeBadgeCount').textContent = `${badges.length}/6`;
   document.getElementById('completedCount').textContent = `${estado.licoesConcluidas.length} / 30`;
   const pct = Math.round((estado.licoesConcluidas.length / 30) * 100);
   document.getElementById('progressPercent').textContent = pct + '%';
   document.getElementById('progressBar').style.width = pct + '%';
+  const nivel = nivelPorXP(estado.xp);
+  const xpNivel = xpNoNivel(estado.xp);
+  const level = document.getElementById('userLevel');
+  const perfilNivel = document.getElementById('perfilNivel');
+  if (level) level.textContent = nivel;
+  if (perfilNivel) perfilNivel.textContent = nivel;
+  const perfilNivelResumo = document.getElementById('perfilNivelResumo');
+  if (perfilNivelResumo) perfilNivelResumo.textContent = nivel;
   const btn = document.getElementById('btnCertificado'), status = document.getElementById('homeCertStatus');
   if (estado.licoesConcluidas.length >= 30) {
     btn.disabled = false;
     btn.innerHTML = '<i class="fa-solid fa-certificate"></i> EMITIR';
     if (status) status.textContent = "Liberado 🎉";
+  } else {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-lock"></i> BLOQUEADO';
+    if (status) status.textContent = `${pct}% concluído`;
   }
+  const xpBar = document.getElementById('xpLevelBar');
+  const xpLabel = document.getElementById('xpLevelLabel');
+  if (xpBar) xpBar.style.width = `${(xpNivel/250)*100}%`;
+  if (xpLabel) xpLabel.textContent = `${xpNivel}/250 XP para o próximo nível`;
+  atualizarStatusExecucao();
 }
 function renderizarHome() {
   const grid = document.getElementById('modulesGrid'); if (!grid) return;
@@ -1016,12 +1131,7 @@ function renderizarBadges() {
   const grid = document.getElementById('badgesContainer'); if (!grid) return;
   grid.innerHTML = "";
   BADGES.forEach(b => {
-    const on = b.id === "b1" ? estado.licoesConcluidas.length >= 1
-      : b.id === "b2" ? ["l6","l7","l8","l9","l10"].every(x => estado.licoesConcluidas.includes(x))
-      : b.id === "b3" ? estado.streak >= 7
-      : b.id === "b4" ? ["l28","l29","l30"].every(x => estado.licoesConcluidas.includes(x))
-      : b.id === "b5" ? estado.licoesConcluidas.length >= 30
-      : estado.licoesConcluidas.length >= 30;
+    const on = obterBadgesDesbloqueadas().some(x => x.id === b.id);
     const c = document.createElement('div');
     c.className = `p-4 rounded-2xl border-2 text-center transition-all ${on ? 'bg-gradient-to-br from-pyr-800 to-ink-800 border-pyr-500/60' : 'bg-ink-800/50 border-pyr-900/30 opacity-50'}`;
     c.innerHTML = `
@@ -1038,6 +1148,10 @@ function renderizarQuiz(q) {
   if (!q) { c.classList.add('hidden'); return; }
   c.classList.remove('hidden');
   document.getElementById('quizQuestion').textContent = q.p;
+  const status = document.getElementById('quizStatus');
+  const tent = Number(estado.quizTentativas[estado.licaoAtual] || 0);
+  const acertou = estado.quizAcertos.includes(estado.licaoAtual);
+  if (status) status.textContent = acertou ? '✓ Resposta registrada. Esta lição já está concluída.' : `Tentativas nesta lição: ${tent}`;
   const o = document.getElementById('quizOptions'); o.innerHTML = "";
   document.getElementById('quizFeedback').classList.add('hidden');
   q.o.forEach((opt, i) => {
@@ -1048,33 +1162,70 @@ function renderizarQuiz(q) {
     o.appendChild(b);
   });
 }
+
+function concluirLicaoAtual() {
+  if (!estado.licoesConcluidas.includes(estado.licaoAtual)) {
+    estado.licoesConcluidas.push(estado.licaoAtual);
+    const antes = estado.missoes.licoesHoje || 0;
+    estado.missoes.licoesHoje = Math.min(2, antes + 1);
+    atualizarMissoes();
+    if (estado.missoes.licoesHoje >= 2 && !estado.missoes.recompensada) {
+      estado.missoes.recompensada = true;
+      ganharXP(100, 'Missão diária');
+      mostrarToast('🎯 Missão diária concluída! +100 XP');
+    }
+  }
+}
+
 function verificarResposta(esc, cor) {
   const fb = document.getElementById('quizFeedback');
+  const status = document.getElementById('quizStatus');
+  const id = estado.licaoAtual;
+  estado.quizTentativas[id] = (Number(estado.quizTentativas[id]) || 0) + 1;
   fb.classList.remove('hidden');
   if (esc === cor) {
+    const primeiroAcerto = !estado.quizAcertos.includes(id);
     fb.className = "p-4 rounded-xl text-sm font-black text-center bg-grn-500/20 text-grn-400 border-2 border-grn-500/50";
-    fb.textContent = "✨ CORRETO! +50 XP";
+    fb.textContent = primeiroAcerto ? "✨ CORRETO! +50 XP" : "✨ CORRETO! Acerto já registrado.";
     tocarSom('sucesso');
     confetti({particleCount:60, spread:70, origin:{y:0.7}, colors:['#7c3aed','#a78bfa','#10b981']});
-    ganharXP(50);
-    if (!estado.licoesConcluidas.includes(estado.licaoAtual)) {
-      estado.licoesConcluidas.push(estado.licaoAtual);
-      estado.missoes.licoesHoje = (estado.missoes.licoesHoje || 0) + 1;
-      atualizarMissoes();
+    if (primeiroAcerto) {
+      estado.quizAcertos.push(id);
+      ganharXP(50, 'Quiz');
+      concluirLicaoAtual();
     }
-    salvarEstado(); renderizarListaLicoes(); renderizarHeader();
+    if (status) status.textContent = `✓ Acertou em ${estado.quizTentativas[id]} tentativa(s)`;
+    salvarEstado();
+    renderizarListaLicoes(); renderizarHeader(); renderizarBadges();
   } else {
     fb.className = "p-4 rounded-xl text-sm font-black text-center bg-red-500/20 text-red-300 border-2 border-red-500/50";
     fb.textContent = "❌ INCORRETO! Tente de novo.";
     tocarSom('erro');
+    if (status) status.textContent = `Tentativas nesta lição: ${estado.quizTentativas[id]}`;
+    salvarEstado();
   }
 }
-function ganharXP(q) { estado.xp += q; salvarEstado(); renderizarHeader(); }
+
+function ganharXP(q, motivo = '') {
+  const qtd = Math.max(0, Number(q) || 0);
+  if (!qtd) return;
+  const nivelAntes = nivelPorXP(estado.xp);
+  estado.xp += qtd;
+  salvarEstado();
+  renderizarHeader();
+  mostrarGanharXP(qtd);
+  const nivelDepois = nivelPorXP(estado.xp);
+  if (nivelDepois > nivelAntes) {
+    mostrarToast(`⭐ Você chegou ao nível ${nivelDepois}!`);
+    tocarSom('sucesso');
+  }
+}
+
 function atualizarMissoes() {
-  const m = estado.missoes.licoesHoje || 0;
+  const m = Math.min(2, estado.missoes.licoesHoje || 0);
   const pct = Math.min((m/2)*100, 100);
   const p = document.getElementById('m1Prog'), b = document.getElementById('m1Bar');
-  if (p) p.textContent = `${Math.min(m,2)}/2`;
+  if (p) p.textContent = `${m}/2`;
   if (b) b.style.width = pct + '%';
 }
 
@@ -1117,17 +1268,29 @@ async function executarCodigo(origem) {
   const editor = origem === 'lesson' ? editorLicao : editorSandbox;
   const output = document.getElementById(origem === 'lesson' ? 'lessonOutput' : 'sandboxOutput');
   const pyDiv = document.getElementById(origem === 'lesson' ? 'translatedPythonLesson' : 'translatedPythonSandbox');
+  if (!btn || !editor || !output || !pyDiv) return;
   outputAtual = output; output.innerHTML = "";
-  const cp = editor.getValue(), cpy = traduzirPyrtugues(cp);
+  const cp = editor.getValue();
+  const cpy = traduzirPyrtugues(cp);
   pyDiv.textContent = "# Python traduzido:\n" + cpy;
-  if (!pyodide) { appendOutput("Pyodide não carregado.", "error"); return; }
+  if (!cpy.trim()) { appendOutput("Escreva algum código antes de executar.", "error"); return; }
+  if (!pyodide) { appendOutput("Pyodide não carregado. Você ainda pode conferir a tradução acima.", "error"); return; }
   const orig = btn.innerHTML;
   btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> RODANDO...';
   tocarSom('executar');
   try {
     await pyodide.runPythonAsync(cpy);
     tocarSom('sucesso');
-    if (origem === 'lesson') ganharXP(15);
+    if (origem === 'lesson') {
+      if (!estado.execucoesXP[estado.licaoAtual]) {
+        estado.execucoesXP[estado.licaoAtual] = 1;
+        ganharXP(15, 'Execução da aula');
+        mostrarToast('💻 Primeira execução desta aula! +15 XP');
+      } else {
+        salvarEstado();
+      }
+      atualizarStatusExecucao();
+    }
   } catch(e) { appendOutput(String(e), 'error'); tocarSom('erro'); }
   finally { btn.disabled = false; btn.innerHTML = orig; }
 }
@@ -1147,19 +1310,45 @@ function renderizarDicionario(f = "") {
 function filtrarDicionario() { renderizarDicionario(document.getElementById('dictSearchInput').value); }
 function fecharModal(id) { document.getElementById(id).classList.add('hidden'); }
 
+function gerarCodigoCertificado(nome, dataISO) {
+  const base = `PYR|${nome.trim().toUpperCase()}|${dataISO}|30`;
+  let hash = 2166136261;
+  for (let i = 0; i < base.length; i++) {
+    hash ^= base.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return 'PYR-' + (hash >>> 0).toString(36).toUpperCase().padStart(8, '0');
+}
+
+function mostrarCertificado(cert) {
+  document.getElementById('certAlunoNome').textContent = cert.nome;
+  document.getElementById('certData').textContent = cert.data;
+  document.getElementById('certCodigo').textContent = cert.codigo;
+  const qrData = encodeURIComponent(`https://pyrtugues.netlify.app/?cert=${cert.codigo}`);
+  document.getElementById('certQRCode').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrData}`;
+  document.getElementById('certModal').classList.remove('hidden');
+}
+
 function abrirModalCertificado() {
   if (estado.licoesConcluidas.length < 30) { mostrarToast("Complete as 30 lições primeiro!", "error"); return; }
-  document.getElementById('nomeModal').classList.remove('hidden');
+  if (estado.certificado && estado.certificado.codigo) {
+    mostrarCertificado(estado.certificado);
+  } else {
+    document.getElementById('nomeModal').classList.remove('hidden');
+    setTimeout(() => document.getElementById('inputNomeCertificado')?.focus(), 50);
+  }
 }
+
 function emitirCertificado() {
   const n = document.getElementById('inputNomeCertificado').value.trim();
   if (!n) { mostrarToast("Digite seu nome!", "error"); return; }
-  document.getElementById('certAlunoNome').textContent = n;
-  document.getElementById('certData').textContent = new Date().toLocaleDateString('pt-BR');
-  document.getElementById('certCodigo').textContent = 'PYR-' + Math.floor(100000 + Math.random()*900000);
-  document.getElementById('certQRCode').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://pyrtugues.netlify.app`;
+  const dataISO = hojeISO();
+  const cert = { nome:n, data:new Date().toLocaleDateString('pt-BR'), dataISO, codigo:gerarCodigoCertificado(n, dataISO) };
+  estado.certificado = cert;
+  salvarEstado();
+  document.getElementById('inputNomeCertificado').value = '';
   fecharModal('nomeModal');
-  document.getElementById('certModal').classList.remove('hidden');
+  mostrarCertificado(cert);
   confetti({particleCount:150, spread:90, origin:{y:0.6}, colors:['#7c3aed','#a78bfa','#10b981']});
 }
 function baixarCertificado() {
@@ -1177,7 +1366,7 @@ function salvarAnotacoes() {
   ind.innerHTML = '<span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span> Salvando...';
   clearTimeout(timerNotes);
   timerNotes = setTimeout(() => {
-    estado.anotacoes[estado.licaoAtual] = document.getElementById('lessonNotes').value;
+    estado.anotacoes[estado.licaoAtual] = document.getElementById('lessonNotes').value.slice(0, 5000);
     salvarEstado();
     ind.innerHTML = '<span class="w-2 h-2 rounded-full bg-pyr-400"></span> Salvo';
   }, 500);
@@ -1189,12 +1378,23 @@ function exportarProgresso() {
   mostrarToast("Backup exportado!"); fecharMenuConfig();
 }
 function importarProgresso(e) {
+  const file = e.target.files?.[0];
+  if (!file) return;
   const r = new FileReader();
   r.onload = (ev) => {
-    try { const o = JSON.parse(ev.target.result); estado = {...DEFAULT_STATE, ...o}; salvarEstado(); location.reload(); }
-    catch { mostrarToast("Arquivo inválido!", "error"); }
+    try {
+      const o = JSON.parse(ev.target.result);
+      if (!o || typeof o !== 'object') throw new Error('Formato inválido');
+      estado = normalizarEstadoAtual(o);
+      salvarEstado();
+      mostrarToast('Backup importado! Recarregando…');
+      setTimeout(() => location.reload(), 350);
+    } catch {
+      mostrarToast("Arquivo inválido ou incompatível!", "error");
+    }
   };
-  r.readAsText(e.target.files[0]);
+  r.readAsText(file);
+  e.target.value = '';
 }
 function resetarProgresso() {
   if (confirm("Apagar TODO o progresso?")) {
@@ -1239,8 +1439,14 @@ document.addEventListener('click', e => {
   if (!e.target.closest('#menuConfig') && !e.target.closest('button[onclick*="toggleMenuConfig"]')) fecharMenuConfig();
 });
 
+document.getElementById('mainContainer')?.addEventListener('scroll', () => {
+  const btn = document.getElementById('btnBackToTop');
+  if (btn) btn.classList.toggle('hidden', document.getElementById('mainContainer').scrollTop < 280);
+}, { passive:true });
+
 window.addEventListener('DOMContentLoaded', () => {
   carregarEstado(); processarStreak(); processarMissoes();
+  estado = normalizarEstadoAtual(estado);
   editorLicao = CodeMirror.fromTextArea(document.getElementById('lessonCodeEditor'), {
     mode:'python', theme:'dracula', lineNumbers:true, indentUnit:4, tabSize:4, viewportMargin:Infinity, autoCloseBrackets:true
   });
@@ -1248,10 +1454,11 @@ window.addEventListener('DOMContentLoaded', () => {
     mode:'python', theme:'dracula', lineNumbers:true, indentUnit:4, tabSize:4, viewportMargin:Infinity, autoCloseBrackets:true
   });
   editorSandbox.setValue('mostrar("Olá, Sandbox!")\nx = 10\ny = 20\nmostrar(f"Soma: {x mais y}")');
-  renderizarListaLicoes(); renderizarHome(); renderizarHeatmap(); renderizarBadges(); atualizarMissoes(); renderizarHeader();
+  renderizarListaLicoes(); renderizarHome(); renderizarHeatmap(); atualizarMissoes(); renderizarBadges(); renderizarHeader();
   document.getElementById('btnSound').innerHTML = estado.somAtivo ? '<i class="fa-solid fa-volume-high text-pyr-400"></i>' : '<i class="fa-solid fa-volume-xmark text-ink-500"></i>';
   inicializarPyodide();
   abrirLicao(estado.licaoAtual || "l1");
+  salvarEstado();
   setInterval(salvarEstado, 30000);
   window.addEventListener('beforeunload', salvarEstado);
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') salvarEstado(); });
