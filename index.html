@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pyrtugues — Aprenda Programação em Português · v4</title>
+<title>Pyrtugues — Aprenda Programação em Português · v5</title>
 <meta name="theme-color" content="#7c3aed">
 <meta name="description" content="Aprenda programação em português com tradução para Python, exercícios, XP, badges e certificado.">
 <meta name="color-scheme" content="dark">
@@ -70,9 +70,30 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
 .animate-slide-up{animation:slide-up .4s cubic-bezier(.16,1,.3,1)}
 .animate-glow{animation:glow 2s ease-in-out infinite}
 ::selection{background:#7c3aed;color:#fff}
+
+/* ==================== Acessibilidade ==================== */
+.skip-link{position:fixed;left:12px;top:12px;z-index:100;padding:.7rem 1rem;border-radius:.8rem;background:#fff;color:#111;font-weight:900;transform:translateY(-180%);transition:transform .18s ease;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.skip-link:focus{transform:translateY(0)}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+html.a11y-reduced-motion *,html.a11y-reduced-motion *::before,html.a11y-reduced-motion *::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+html.a11y-large-text{font-size:112%}
+html.a11y-comfort-text{letter-spacing:.02em;line-height:1.6}
+html.a11y-focus-always button,html.a11y-focus-always input,html.a11y-focus-always textarea,html.a11y-focus-always select,[tabindex]:focus{outline:3px solid #facc15!important;outline-offset:3px}
+html.a11y-high-contrast body{background:#000!important;color:#fff!important}
+html.a11y-high-contrast .bg-ink-900,html.a11y-high-contrast .bg-ink-950,html.a11y-high-contrast .bg-ink-800,html.a11y-high-contrast .bg-ink-700{background:#000!important}
+html.a11y-high-contrast .border-pyr-900\/40,html.a11y-high-contrast .border-pyr-900\/50,html.a11y-high-contrast .border-pyr-500\/40{border-color:#fff!important}
+html.a11y-high-contrast .text-slate-300,html.a11y-high-contrast .text-slate-400,html.a11y-high-contrast .text-pyr-200,html.a11y-high-contrast .text-pyr-300{color:#fff!important}
+.a11y-option{display:flex;align-items:flex-start;gap:.75rem;padding:.75rem;border:2px solid #242424;border-radius:.9rem;background:#111}
+.a11y-option input{margin-top:.2rem;width:1.1rem;height:1.1rem;accent-color:#8b5cf6}
+.a11y-option strong{display:block;color:#fff;font-size:.9rem}
+kbd{padding:.3rem .45rem;border-radius:.5rem;background:#000;border:1px solid #3d3d3d;color:#ddd6fe;font:700 .7rem/1 Consolas,monospace;white-space:nowrap}
+.a11y-option span{display:block;color:#94a3b8;font-size:.75rem;line-height:1.45}
+@media (prefers-reduced-motion:reduce){html:not(.a11y-force-motion) *,html:not(.a11y-force-motion) *::before,html:not(.a11y-force-motion) *::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body class="bg-ink-900 text-slate-100 min-h-screen font-sans antialiased">
+<a href="#mainContainer" class="skip-link">Pular para o conteúdo principal</a>
+<div id="a11yAnnouncer" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
 
 <header id="mainHeader" class="bg-ink-800/95 backdrop-blur-lg border-b border-pyr-900/40 sticky top-0 z-30 px-3 sm:px-4 py-2.5 flex items-center justify-between">
   <div class="flex items-center gap-2">
@@ -83,7 +104,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
       </div>
       <div class="hidden sm:block">
         <span class="font-black text-lg tracking-tight bg-gradient-to-r from-pyr-300 to-pyr-500 bg-clip-text text-transparent">Pyrtugues</span>
-        <span class="text-[10px] bg-pyr-500/20 text-pyr-300 px-1.5 py-0.5 rounded-md border border-pyr-500/30 font-bold ml-1">v4.0</span>
+        <span class="text-[10px] bg-pyr-500/20 text-pyr-300 px-1.5 py-0.5 rounded-md border border-pyr-500/30 font-bold ml-1">v5.0</span>
       </div>
     </div>
   </div>
@@ -97,16 +118,18 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
     <div class="flex items-center gap-1.5 bg-ink-700 border-2 border-yellow-500/40 px-2.5 py-1.5 rounded-2xl text-xs sm:text-sm font-black text-yellow-400">
       <i class="fa-solid fa-bolt"></i><span id="userXP">0</span>
     </div>
-    <button onclick="toggleSom()" id="btnSound" class="p-2 rounded-xl hover:bg-ink-700 text-pyr-400 transition-colors" title="Som" aria-label="Ativar ou desativar som"><i class="fa-solid fa-volume-high"></i></button>
+    <button onclick="toggleSom()" id="btnSound" class="p-2 rounded-xl hover:bg-ink-700 text-pyr-400 transition-colors" title="Som" aria-label="Ativar ou desativar sons de interface"><i class="fa-solid fa-volume-high"></i></button>
     <button onclick="toggleModoFoco()" class="p-2 rounded-xl hover:bg-ink-700 text-pyr-400 transition-colors hidden sm:block" title="Modo Foco"><i class="fa-solid fa-expand"></i></button>
     <div class="relative">
-      <button onclick="toggleMenuConfig(event)" class="p-2 rounded-xl hover:bg-ink-700 text-pyr-400 transition-colors" title="Config"><i class="fa-solid fa-gear"></i></button>
+      <button onclick="toggleMenuConfig(event)" class="p-2 rounded-xl hover:bg-ink-700 text-pyr-400 transition-colors" title="Configurações" aria-label="Abrir configurações"><i class="fa-solid fa-gear"></i></button>
       <div id="menuConfig" class="absolute right-0 mt-2 w-56 bg-ink-700 border-2 border-pyr-900/50 rounded-2xl shadow-2xl py-2 hidden z-50">
-        <div class="px-4 py-2 text-[10px] uppercase font-black text-pyr-400 tracking-wider">Fonte</div>
+        <div class="px-4 py-2 text-[10px] uppercase font-black text-pyr-400 tracking-wider">Aparência e acessibilidade</div>
         <button onclick="mudarFonte('sm')" class="w-full text-left px-4 py-2 text-sm hover:bg-ink-600 text-slate-200">Pequena</button>
         <button onclick="mudarFonte('md')" class="w-full text-left px-4 py-2 text-sm hover:bg-ink-600 text-slate-200">Média</button>
         <button onclick="mudarFonte('lg')" class="w-full text-left px-4 py-2 text-sm hover:bg-ink-600 text-slate-200">Grande</button>
         <div class="border-t border-pyr-900/50 my-1"></div>
+        <button onclick="abrirAcessibilidade()" class="w-full text-left px-4 py-2 text-sm hover:bg-ink-600 text-pyr-300"><i class="fa-solid fa-universal-access mr-2"></i>Acessibilidade</button>
+        <button onclick="abrirGuiaAtalhos()" class="w-full text-left px-4 py-2 text-sm hover:bg-ink-600 text-pyr-300"><i class="fa-solid fa-keyboard mr-2"></i>Atalhos</button>
         <button onclick="exportarProgresso()" class="w-full text-left px-4 py-2 text-sm hover:bg-ink-600 text-pyr-300"><i class="fa-solid fa-download mr-2"></i>Exportar</button>
         <button onclick="document.getElementById('importInput').click()" class="w-full text-left px-4 py-2 text-sm hover:bg-ink-600 text-pyr-300"><i class="fa-solid fa-upload mr-2"></i>Importar</button>
         <button onclick="resetarProgresso()" class="w-full text-left px-4 py-2 text-sm hover:bg-ink-600 text-red-400"><i class="fa-solid fa-trash mr-2"></i>Resetar</button>
@@ -139,13 +162,14 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
     <div class="p-3 border-b-2 border-pyr-900/40">
       <div class="relative">
         <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-pyr-500 text-sm"></i>
-        <input type="text" id="searchInput" oninput="filtrarLicoes()" placeholder="Buscar... (Ctrl+K)" class="w-full bg-ink-900 border-2 border-pyr-900/50 rounded-xl pl-9 pr-3 py-2 text-sm focus:outline-none focus:border-pyr-500 text-slate-200 placeholder-pyr-500/60 font-medium transition-colors">
+        <input type="text" id="searchInput" aria-label="Buscar lições" oninput="filtrarLicoes()" placeholder="Buscar... (Ctrl+K)" class="w-full bg-ink-900 border-2 border-pyr-900/50 rounded-xl pl-9 pr-3 py-2 text-sm focus:outline-none focus:border-pyr-500 text-slate-200 placeholder-pyr-500/60 font-medium transition-colors">
       </div>
     </div>
 
     <div class="p-2 space-y-1 border-b-2 border-pyr-900/40">
       <button onclick="mudarSecao('home')" class="w-full text-left px-3 py-2.5 rounded-xl text-sm font-bold hover:bg-ink-700 flex items-center gap-3 text-slate-300 transition-colors"><i class="fa-solid fa-house text-pyr-400 w-4"></i> Início</button>
       <button onclick="mudarSecao('pratica')" class="w-full text-left px-3 py-2.5 rounded-xl text-sm font-bold hover:bg-ink-700 flex items-center gap-3 text-slate-300 transition-colors"><i class="fa-solid fa-terminal text-pyr-400 w-4"></i> Sandbox</button>
+      <button onclick="mudarSecao('pygame')" class="w-full text-left px-3 py-2.5 rounded-xl text-sm font-bold hover:bg-ink-700 flex items-center gap-3 text-slate-300 transition-colors"><i class="fa-solid fa-gamepad text-pyr-400 w-4"></i> Academia Pygame</button>
       <button onclick="abrirDicionario()" class="w-full text-left px-3 py-2.5 rounded-xl text-sm font-bold hover:bg-ink-700 flex items-center gap-3 text-slate-300 transition-colors"><i class="fa-solid fa-book-bookmark text-pyr-400 w-4"></i> Dicionário</button>
       <button onclick="mudarSecao('perfil')" class="w-full text-left px-3 py-2.5 rounded-xl text-sm font-bold hover:bg-ink-700 flex items-center gap-3 text-slate-300 transition-colors"><i class="fa-solid fa-user-graduate text-pyr-400 w-4"></i> Perfil</button>
     </div>
@@ -166,8 +190,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
     <div class="flex-1 overflow-y-auto p-2 space-y-1" id="lessonsList"></div>
   </aside>
 
-  <main id="mainContainer" class="flex-1 overflow-y-auto p-3 sm:p-6 lg:p-8 bg-ink-900">
-    <section id="sec-home" class="max-w-5xl mx-auto space-y-6 animate-slide-up">
+  <main id="mainContainer" tabindex="-1" aria-label="Conteúdo principal do curso" class="flex-1 overflow-y-auto p-3 sm:p-6 lg:p-8 bg-ink-900">
+    <section id="sec-home" aria-labelledby="homeHeading" class="max-w-5xl mx-auto space-y-6 animate-slide-up">
       <div class="relative bg-gradient-to-br from-pyr-800 via-ink-800 to-ink-900 rounded-3xl p-6 sm:p-10 overflow-hidden border-2 border-pyr-500/20 shadow-2xl">
         <div class="absolute -right-10 -top-10 w-40 h-40 bg-pyr-500/15 rounded-full blur-3xl"></div>
         <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-pyr-400/15 rounded-full blur-3xl"></div>
@@ -176,7 +200,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
             <span class="w-2 h-2 rounded-full bg-pyr-400 animate-pulse"></span>
             <span>APRENDA PROGRAMANDO EM PORTUGUÊS</span>
           </div>
-          <h1 class="text-3xl sm:text-5xl font-black text-white leading-tight">
+          <h1 id="homeHeading" class="text-3xl sm:text-5xl font-black text-white leading-tight">
             Código em <span class="text-pyr-400">português</span> que vira <span class="text-pyr-300">Python</span> de verdade!
           </h1>
           <p class="text-pyr-100/70 text-base sm:text-lg font-medium">
@@ -239,7 +263,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
       </div>
     </section>
 
-    <section id="sec-lesson" class="max-w-6xl mx-auto space-y-5 hidden animate-slide-up">
+    <section id="sec-lesson" aria-labelledby="lessonTitle" class="max-w-6xl mx-auto space-y-5 hidden animate-slide-up">
       <div class="flex items-center justify-between border-b-2 border-pyr-900/40 pb-4">
         <div>
           <span id="lessonCategory" class="text-xs font-black text-pyr-400 uppercase tracking-widest">Módulo 1</span>
@@ -274,7 +298,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
             <button onclick="limparOutput('lessonOutput')" class="text-xs text-pyr-400 hover:text-pyr-200 font-bold">LIMPAR</button>
           </div>
           <div class="p-3 bg-ink-950 border-b-2 border-pyr-900/40 font-mono text-[11px] text-blue-300 overflow-x-auto max-h-32" id="translatedPythonLesson"># Python traduzido aparece aqui...</div>
-          <div class="p-3 bg-black font-mono text-sm min-h-[160px] max-h-[260px] overflow-y-auto" id="lessonOutput"><span class="text-pyr-600 italic">// Saída do programa...</span></div>
+          <div class="p-3 bg-black font-mono text-sm min-h-[160px] max-h-[260px] overflow-y-auto" id="lessonOutput" role="status" aria-live="polite"><span class="text-pyr-600 italic">// Saída do programa...</span></div>
         </div>
       </div>
 
@@ -297,9 +321,9 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
       </div>
     </section>
 
-    <section id="sec-pratica" class="max-w-6xl mx-auto space-y-5 hidden animate-slide-up">
+    <section id="sec-pratica" aria-labelledby="sandboxHeading" class="max-w-6xl mx-auto space-y-5 hidden animate-slide-up">
       <div>
-        <h2 class="text-2xl sm:text-3xl font-black text-white flex items-center gap-2"><i class="fa-solid fa-terminal text-pyr-400"></i> Sandbox</h2>
+        <h2 id="sandboxHeading" class="text-2xl sm:text-3xl font-black text-white flex items-center gap-2"><i class="fa-solid fa-terminal text-pyr-400"></i> Sandbox</h2>
         <p class="text-pyr-300 text-sm font-medium">Escreva qualquer código livremente em português!</p>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -319,16 +343,71 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
             <button onclick="limparOutput('sandboxOutput')" class="text-xs text-pyr-400 hover:text-pyr-200 font-bold">LIMPAR</button>
           </div>
           <div class="p-3 bg-ink-950 border-b-2 border-pyr-900/40 font-mono text-[11px] text-blue-300 overflow-x-auto max-h-32" id="translatedPythonSandbox"># Tradução aparece aqui...</div>
-          <div class="p-3 bg-black font-mono text-sm min-h-[240px] max-h-[400px] overflow-y-auto" id="sandboxOutput"><span class="text-pyr-600 italic">// Saída...</span></div>
+          <div class="p-3 bg-black font-mono text-sm min-h-[240px] max-h-[400px] overflow-y-auto" id="sandboxOutput" role="status" aria-live="polite"><span class="text-pyr-600 italic">// Saída...</span></div>
         </div>
       </div>
     </section>
 
-    <section id="sec-perfil" class="max-w-4xl mx-auto space-y-6 hidden animate-slide-up">
+
+    <section id="sec-pygame" class="max-w-6xl mx-auto space-y-6 hidden animate-slide-up" aria-labelledby="pygameHeading">
+      <div class="relative bg-gradient-to-br from-pyr-900/60 via-ink-800 to-ink-900 rounded-3xl p-6 sm:p-8 border-2 border-pyr-500/30 overflow-hidden">
+        <div class="absolute right-0 top-0 w-48 h-48 bg-pyr-500/10 rounded-full blur-3xl"></div>
+        <div class="relative z-10 max-w-3xl">
+          <span class="text-xs font-black text-pyr-300 uppercase tracking-[.22em]">Trilha Extra · Game Dev</span>
+          <h2 id="pygameHeading" class="text-3xl sm:text-4xl font-black text-white mt-2">Academia Pygame em Pyrtugues</h2>
+          <p class="mt-3 text-slate-300 leading-relaxed">Aprenda a montar janelas, eventos, teclado, desenho e loops de jogo usando as palavras traduzidas do seu motor Pyrtugues.</p>
+          <div class="flex flex-wrap gap-2 mt-5" aria-label="Tópicos da trilha">
+            <span class="px-3 py-1.5 rounded-full bg-pyr-500/15 border-2 border-pyr-500/30 text-pyr-200 text-xs font-black">Janelas</span>
+            <span class="px-3 py-1.5 rounded-full bg-pyr-500/15 border-2 border-pyr-500/30 text-pyr-200 text-xs font-black">Eventos</span>
+            <span class="px-3 py-1.5 rounded-full bg-pyr-500/15 border-2 border-pyr-500/30 text-pyr-200 text-xs font-black">Teclado</span>
+            <span class="px-3 py-1.5 rounded-full bg-pyr-500/15 border-2 border-pyr-500/30 text-pyr-200 text-xs font-black">Desenho</span>
+            <span class="px-3 py-1.5 rounded-full bg-pyr-500/15 border-2 border-pyr-500/30 text-pyr-200 text-xs font-black">Cores</span>
+            <span class="px-3 py-1.5 rounded-full bg-pyr-500/15 border-2 border-pyr-500/30 text-pyr-200 text-xs font-black">Loop</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4" id="pygameLessonsGrid" aria-label="Mini-aulas de Pygame"></div>
+
+      <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+        <div class="bg-ink-800 border-2 border-pyr-900/40 rounded-2xl overflow-hidden">
+          <div class="bg-ink-700 px-4 py-3 border-b-2 border-pyr-900/40 flex items-center justify-between gap-3">
+            <div>
+              <h3 class="text-sm font-black text-white">Pratique a tradução</h3>
+              <p class="text-[11px] text-slate-400">Escreva em Pyrtugues e veja o Python equivalente.</p>
+            </div>
+            <button onclick="carregarExemploPygame(0)" class="text-xs font-black text-pyr-300 hover:text-white">EXEMPLO</button>
+          </div>
+          <textarea id="pygameCodeEditor" aria-label="Editor de código Pygame em Pyrtugues"></textarea>
+          <div class="p-3 bg-ink-700/50 border-t-2 border-pyr-900/40 flex flex-wrap gap-2">
+            <button onclick="traduzirPygameEditor()" class="btn-3d bg-pyr-500 hover:bg-pyr-400 text-white border-pyr-700 px-4 py-2.5 rounded-xl text-xs font-black">TRADUZIR</button>
+            <button onclick="copiarPygamePython()" class="btn-3d bg-ink-700 hover:bg-ink-600 text-pyr-200 border-ink-500 px-4 py-2.5 rounded-xl text-xs font-black">COPIAR PYTHON</button>
+          </div>
+        </div>
+
+        <div class="bg-ink-800 border-2 border-pyr-900/40 rounded-2xl overflow-hidden">
+          <div class="bg-ink-700 px-4 py-3 border-b-2 border-pyr-900/40">
+            <h3 class="text-sm font-black text-white">Python traduzido</h3>
+            <p class="text-[11px] text-slate-400">A tradução segue o vocabulário do Pyrtugues_code.py fornecido.</p>
+          </div>
+          <pre id="pygamePythonPreview" tabindex="0" role="region" aria-label="Python traduzido do exemplo Pygame" aria-live="polite" class="m-0 p-4 bg-black min-h-[300px] max-h-[500px] overflow-auto text-xs sm:text-sm text-emerald-300 font-mono whitespace-pre-wrap"># Python traduzido aparecerá aqui.</pre>
+          <div class="p-4 border-t-2 border-pyr-900/40 bg-ink-900/60">
+            <p id="pygameCompatibilityNote" class="text-xs text-slate-400 leading-relaxed">A trilha é extra e não altera as 30 lições do certificado. Nesta versão web, ela é focada em aprender a sintaxe e conferir a tradução; o uso gráfico completo do Pygame pode ser feito no editor desktop do Pyrtugues.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-ink-800 border-2 border-pyr-900/40 rounded-2xl p-5 sm:p-6">
+        <h3 class="text-lg font-black text-white flex items-center gap-2"><i class="fa-solid fa-map text-pyr-400"></i> Mapa rápido da linguagem</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-4" id="pygameDictionaryGrid"></div>
+      </div>
+    </section>
+
+    <section id="sec-perfil" aria-labelledby="profileHeading" class="max-w-4xl mx-auto space-y-6 hidden animate-slide-up">
       <div class="bg-gradient-to-br from-pyr-800 to-ink-800 border-2 border-pyr-700/40 rounded-3xl p-6 flex flex-col sm:flex-row items-center gap-6 shadow-xl">
         <div class="w-24 h-24 rounded-full bg-gradient-to-br from-pyr-400 to-pyr-600 flex items-center justify-center text-4xl shadow-2xl shadow-pyr-500/30"><i class="fa-solid fa-user-ninja text-white"></i></div>
         <div class="space-y-2 text-center sm:text-left flex-1">
-          <h2 class="text-2xl font-black text-white">Dev Pyrtugues</h2>
+          <h2 id="profileHeading" class="text-2xl font-black text-white">Dev Pyrtugues</h2>
           <p class="text-pyr-200 text-sm font-medium">Trilha Oficial de Algoritmos & Python</p>
           <div class="flex flex-wrap gap-2 pt-2 justify-center sm:justify-start">
             <span class="bg-yellow-500/20 border-2 border-yellow-500/40 px-3 py-1 rounded-full text-xs font-black text-yellow-300"><i class="fa-solid fa-bolt mr-1"></i><span id="perfilXP">0</span> XP</span>
@@ -364,29 +443,32 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
 <nav class="md:hidden bg-ink-800 border-t-2 border-pyr-900/40 sticky bottom-0 z-30 flex items-center justify-around py-1.5">
   <button onclick="mudarSecao('home')" class="flex flex-col items-center gap-0.5 text-pyr-400 hover:text-pyr-200 text-[10px] font-black py-1 px-3"><i class="fa-solid fa-house text-lg"></i> INÍCIO</button>
   <button onclick="mudarSecao('pratica')" class="flex flex-col items-center gap-0.5 text-pyr-400 hover:text-pyr-200 text-[10px] font-black py-1 px-3"><i class="fa-solid fa-terminal text-lg"></i> SANDBOX</button>
+  <button onclick="mudarSecao('pygame')" class="flex flex-col items-center gap-0.5 text-pyr-400 hover:text-pyr-200 text-[10px] font-black py-1 px-2"><i class="fa-solid fa-gamepad text-lg"></i> PYGAME</button>
   <button onclick="abrirDicionario()" class="flex flex-col items-center gap-0.5 text-pyr-400 hover:text-pyr-200 text-[10px] font-black py-1 px-3"><i class="fa-solid fa-book text-lg"></i> DICIONÁRIO</button>
   <button onclick="mudarSecao('perfil')" class="flex flex-col items-center gap-0.5 text-pyr-400 hover:text-pyr-200 text-[10px] font-black py-1 px-3"><i class="fa-solid fa-user text-lg"></i> PERFIL</button>
 </nav>
 
-<button id="btnBackToTop" onclick="voltarAoTopo()" class="fixed bottom-24 md:bottom-6 right-4 z-40 bg-pyr-500 hover:bg-pyr-400 text-white p-3 rounded-full shadow-2xl shadow-pyr-500/40 hidden transition-all" title="Topo"><i class="fa-solid fa-arrow-up"></i></button>
+<button id="a11yFab" onclick="abrirAcessibilidade()" class="fixed bottom-24 md:bottom-6 left-4 z-40 bg-ink-700 hover:bg-ink-600 text-pyr-200 border-2 border-pyr-500/50 w-11 h-11 rounded-full shadow-2xl flex items-center justify-center" title="Acessibilidade" aria-label="Abrir opções de acessibilidade"><i class="fa-solid fa-universal-access text-lg"></i></button>
 
-<div id="inputModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+<button id="btnBackToTop" onclick="voltarAoTopo()" class="fixed bottom-24 md:bottom-6 right-4 z-40 bg-pyr-500 hover:bg-pyr-400 text-white p-3 rounded-full shadow-2xl shadow-pyr-500/40 hidden transition-all" title="Voltar ao topo" aria-label="Voltar ao topo"><i class="fa-solid fa-arrow-up"></i></button>
+
+<div id="inputModal" role="dialog" aria-modal="true" aria-labelledby="inputModalTitle" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
   <div class="bg-ink-800 border-2 border-pyr-500/40 rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl animate-pop">
-    <h3 class="text-lg font-black text-white flex items-center gap-2"><i class="fa-solid fa-terminal text-pyr-400"></i> ENTRADA DE DADOS</h3>
+    <h3 id="inputModalTitle" class="text-lg font-black text-white flex items-center gap-2"><i class="fa-solid fa-terminal text-pyr-400"></i> ENTRADA DE DADOS</h3>
     <p id="inputModalPrompt" class="text-pyr-200 text-sm font-bold">Digite um valor:</p>
-    <input type="text" id="inputModalText" onkeydown="if(event.key === 'Enter') responderInputModal()" class="w-full bg-ink-900 border-2 border-pyr-900/50 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:border-pyr-500 text-sm font-medium transition-colors" autofocus>
+    <label for="inputModalText" class="sr-only">Valor de entrada</label><input type="text" id="inputModalText" aria-describedby="inputModalPrompt" onkeydown="if(event.key === 'Enter') responderInputModal()" class="w-full bg-ink-900 border-2 border-pyr-900/50 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:border-pyr-500 text-sm font-medium transition-colors" autofocus>
     <div class="flex justify-end"><button onclick="responderInputModal()" class="btn-3d bg-pyr-500 hover:bg-pyr-400 text-white border-pyr-700 px-5 py-2.5 rounded-xl text-sm">ENVIAR</button></div>
   </div>
 </div>
 
-<div id="dictModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+<div id="dictModal" role="dialog" aria-modal="true" aria-labelledby="dictModalTitle" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
   <div class="bg-ink-800 border-2 border-pyr-500/40 rounded-3xl max-w-3xl w-full max-h-[85vh] flex flex-col shadow-2xl animate-pop">
     <div class="p-4 border-b-2 border-pyr-900/50 flex items-center justify-between">
-      <h3 class="text-lg font-black text-white flex items-center gap-2"><i class="fa-solid fa-book-bookmark text-pyr-400"></i> DICIONÁRIO</h3>
+      <h3 id="dictModalTitle" class="text-lg font-black text-white flex items-center gap-2"><i class="fa-solid fa-book-bookmark text-pyr-400"></i> DICIONÁRIO</h3>
       <button onclick="fecharModal('dictModal')" class="text-pyr-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-xl"></i></button>
     </div>
     <div class="p-3 border-b-2 border-pyr-900/50 bg-ink-900/50">
-      <input type="text" id="dictSearchInput" oninput="filtrarDicionario()" placeholder="Buscar termo..." class="w-full bg-ink-900 border-2 border-pyr-900/50 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-pyr-500 font-medium">
+      <input type="text" id="dictSearchInput" aria-label="Buscar no dicionário" oninput="filtrarDicionario()" placeholder="Buscar termo..." class="w-full bg-ink-900 border-2 border-pyr-900/50 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-pyr-500 font-medium">
     </div>
     <div class="flex-1 overflow-y-auto p-4">
       <table class="w-full text-left text-sm">
@@ -399,7 +481,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
   </div>
 </div>
 
-<div id="certModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+<div id="certModal" role="dialog" aria-modal="true" aria-labelledby="certModalTitle" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
   <div class="relative max-w-3xl w-full animate-pop">
     <button onclick="fecharModal('certModal')" class="absolute -top-2 -right-2 z-10 bg-ink-700 hover:bg-ink-600 border-2 border-pyr-500/40 text-white w-10 h-10 rounded-full flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
     <div id="certificadoCard" class="bg-gradient-to-br from-ink-800 via-ink-800 to-pyr-900/40 border-4 border-pyr-500 rounded-3xl p-8 sm:p-12 space-y-6 text-center text-slate-100 relative overflow-hidden">
@@ -407,7 +489,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
       <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-pyr-400/20 rounded-full blur-3xl"></div>
       <div class="relative space-y-3">
         <div class="text-5xl">🎓</div>
-        <h2 class="text-2xl sm:text-3xl font-black tracking-widest text-pyr-300 uppercase">Certificado</h2>
+        <h2 id="certModalTitle" class="text-2xl sm:text-3xl font-black tracking-widest text-pyr-300 uppercase">Certificado</h2>
         <p class="text-pyr-400 text-xs font-black uppercase tracking-widest">Academia Pyrtugues</p>
       </div>
       <p class="text-slate-300 text-sm sm:text-base leading-relaxed relative">Certificamos que</p>
@@ -415,7 +497,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
       <p class="text-slate-300 text-sm sm:text-base leading-relaxed relative">concluiu com sucesso todas as <strong class="text-pyr-300">30 lições</strong> da trilha de Algoritmos e Programação em Português.</p>
       <div class="flex items-center justify-between border-t-2 border-b-2 border-pyr-900/50 py-4 px-4 text-left text-xs text-slate-400 relative">
         <div class="space-y-1"><p>Emissão: <strong class="text-slate-200" id="certData">—</strong></p><p>Código: <strong class="text-slate-200" id="certCodigo">—</strong></p></div>
-        <img id="certQRCode" src="" alt="QR" class="w-16 h-16 rounded-lg border-2 border-pyr-500/30 bg-white p-1">
+        <img id="certQRCode" src="" alt="QR code do certificado Pyrtugues" class="w-16 h-16 rounded-lg border-2 border-pyr-500/30 bg-white p-1">
       </div>
       <div class="flex justify-center gap-3 relative">
         <button onclick="baixarCertificado()" class="btn-3d bg-pyr-500 hover:bg-pyr-400 text-white border-pyr-700 px-5 py-2.5 rounded-xl text-sm flex items-center gap-2"><i class="fa-solid fa-download"></i> BAIXAR PNG</button>
@@ -425,14 +507,14 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
   </div>
 </div>
 
-<div id="nomeModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+<div id="nomeModal" role="dialog" aria-modal="true" aria-labelledby="nomeModalTitle" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
   <div class="bg-ink-800 border-2 border-pyr-500/40 rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl animate-pop">
     <div class="text-center space-y-2">
       <div class="w-14 h-14 bg-pyr-500/20 rounded-2xl mx-auto flex items-center justify-center text-2xl"><i class="fa-solid fa-graduation-cap text-pyr-400"></i></div>
-      <h3 class="text-xl font-black text-white">EMITIR CERTIFICADO</h3>
+      <h3 id="nomeModalTitle" class="text-xl font-black text-white">EMITIR CERTIFICADO</h3>
       <p class="text-pyr-300 text-xs font-medium">Digite seu nome completo:</p>
     </div>
-    <input type="text" id="inputNomeCertificado" placeholder="Ex: Maria Silva" class="w-full bg-ink-900 border-2 border-pyr-900/50 rounded-xl p-3.5 text-sm focus:outline-none focus:border-pyr-500 text-slate-200 font-medium">
+    <label for="inputNomeCertificado" class="sr-only">Nome para o certificado</label><input type="text" id="inputNomeCertificado" placeholder="Ex: Maria Silva" class="w-full bg-ink-900 border-2 border-pyr-900/50 rounded-xl p-3.5 text-sm focus:outline-none focus:border-pyr-500 text-slate-200 font-medium">
     <div class="flex gap-3">
       <button onclick="fecharModal('nomeModal')" class="flex-1 py-3 bg-ink-700 hover:bg-ink-600 rounded-xl text-xs font-black text-pyr-200">CANCELAR</button>
       <button onclick="emitirCertificado()" class="btn-3d flex-1 bg-pyr-500 hover:bg-pyr-400 text-white border-pyr-700 py-3 rounded-xl text-xs">EMITIR</button>
@@ -440,7 +522,49 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
   </div>
 </div>
 
-<div id="toastContainer" class="fixed top-20 right-4 z-50 space-y-2 pointer-events-none max-w-xs"></div>
+
+<div id="a11yModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[60] flex items-center justify-center p-4 hidden" role="dialog" aria-modal="true" aria-labelledby="a11yTitle">
+  <div class="bg-ink-800 border-2 border-pyr-500/40 rounded-3xl max-w-xl w-full p-6 space-y-5 shadow-2xl animate-pop max-h-[90vh] overflow-y-auto">
+    <div class="flex items-start justify-between gap-4">
+      <div>
+        <span class="text-xs font-black text-pyr-400 uppercase tracking-wider">Personalização</span>
+        <h2 id="a11yTitle" class="text-2xl font-black text-white mt-1">Acessibilidade</h2>
+        <p class="text-xs text-slate-400 mt-2">As escolhas ficam salvas neste navegador.</p>
+      </div>
+      <button onclick="fecharModal('a11yModal')" class="p-2 rounded-xl hover:bg-ink-700 text-pyr-300" aria-label="Fechar acessibilidade" data-modal-close="true"><i class="fa-solid fa-xmark text-xl"></i></button>
+    </div>
+    <div class="grid gap-2">
+      <label class="a11y-option"><input id="a11yHighContrast" type="checkbox" onchange="alterarAcessibilidade('altoContraste', this.checked)"><span><strong>Alto contraste</strong><span>Aumenta a diferença entre fundo, texto e bordas.</span></span></label>
+      <label class="a11y-option"><input id="a11yReducedMotion" type="checkbox" onchange="alterarAcessibilidade('reduzirAnimacoes', this.checked)"><span><strong>Reduzir animações</strong><span>Evita efeitos e transições desnecessárias.</span></span></label>
+      <label class="a11y-option"><input id="a11yLargeText" type="checkbox" onchange="alterarAcessibilidade('textoGrande', this.checked)"><span><strong>Texto maior</strong><span>Aumenta a escala do texto da página.</span></span></label>
+      <label class="a11y-option"><input id="a11yComfortText" type="checkbox" onchange="alterarAcessibilidade('textoConfortavel', this.checked)"><span><strong>Leitura confortável</strong><span>Amplia espaçamento entre letras e linhas.</span></span></label>
+      <label class="a11y-option"><input id="a11yFocusAlways" type="checkbox" onchange="alterarAcessibilidade('focoSempreVisivel', this.checked)"><span><strong>Foco sempre visível</strong><span>Destaca claramente onde o teclado está.</span></span></label>
+    </div>
+    <div class="flex flex-wrap gap-2 pt-1">
+      <button onclick="resetarAcessibilidade()" class="px-4 py-2.5 rounded-xl bg-ink-700 border-2 border-ink-500 text-slate-200 text-xs font-black">RESTAURAR PADRÃO</button>
+      <button onclick="fecharModal('a11yModal')" class="ml-auto px-5 py-2.5 rounded-xl bg-pyr-500 hover:bg-pyr-400 text-white text-xs font-black">FECHAR</button>
+    </div>
+  </div>
+</div>
+
+<div id="shortcutsModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[60] flex items-center justify-center p-4 hidden" role="dialog" aria-modal="true" aria-labelledby="shortcutsTitle">
+  <div class="bg-ink-800 border-2 border-pyr-500/40 rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl animate-pop">
+    <div class="flex items-center justify-between">
+      <div><span class="text-xs font-black text-pyr-400 uppercase tracking-wider">Teclado</span><h2 id="shortcutsTitle" class="text-2xl font-black text-white mt-1">Atalhos</h2></div>
+      <button onclick="fecharModal('shortcutsModal')" class="p-2 rounded-xl hover:bg-ink-700 text-pyr-300" aria-label="Fechar atalhos"><i class="fa-solid fa-xmark text-xl"></i></button>
+    </div>
+    <div class="divide-y divide-ink-600 border-2 border-ink-600 rounded-2xl overflow-hidden">
+      <div class="flex items-center justify-between px-4 py-3"><span class="text-sm text-slate-200">Executar código</span><kbd class="px-2 py-1 rounded-lg bg-black border border-ink-500 text-pyr-200 text-[11px] font-mono">Ctrl/⌘ + Enter</kbd></div>
+      <div class="flex items-center justify-between px-4 py-3"><span class="text-sm text-slate-200">Salvar progresso</span><kbd>Ctrl/⌘ + S</kbd></div>
+      <div class="flex items-center justify-between px-4 py-3"><span class="text-sm text-slate-200">Buscar lições</span><kbd>Ctrl/⌘ + K</kbd></div>
+      <div class="flex items-center justify-between px-4 py-3"><span class="text-sm text-slate-200">Fechar modal/menu</span><kbd>Esc</kbd></div>
+      <div class="flex items-center justify-between px-4 py-3"><span class="text-sm text-slate-200">Abrir acessibilidade</span><kbd>Alt + A</kbd></div>
+    </div>
+    <button onclick="fecharModal('shortcutsModal')" class="w-full px-5 py-3 rounded-xl bg-pyr-500 hover:bg-pyr-400 text-white text-xs font-black">FECHAR</button>
+  </div>
+</div>
+
+<div id="toastContainer" class="fixed top-20 right-4 z-50 space-y-2 pointer-events-none max-w-xs" aria-live="polite" aria-atomic="true"></div>
 
 <script>
 // ============================================================
@@ -448,76 +572,325 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
 // ============================================================
 
 const DICIONARIO = {
-  "senão se": "elif", "senão-se": "elif", "senãose": "elif", "senão": "else",
-  "enquanto verdadeiro": "while True", "enquanto": "while",
-  "para cada": "for", "para": "for", "se": "if", "em": "in",
-  "quebrar": "break", "continuar": "continue", "passar": "pass",
-  "com": "with", "como": "as", "finalmente": "finally",
-  "função": "def", "classe": "class",
-  "retornar verdadeiro": "return True", "retornar falso": "return False",
-  "retornar nulo": "return None", "retornar": "return",
-  "produzir": "yield", "assíncrono": "async", "aguardar": "await",
-  "importar": "import", "de": "from",
-  "tentar": "try", "excepto": "except", "levantar": "raise",
-  "afirmar": "assert", "verificar": "assert", "lançar": "raise",
-  "global": "global", "nãolocal": "nonlocal",
-  "verdadeiro": "True", "falso": "False", "nulo": "None",
-  "vazio": "pass", "nada": "None",
-  "e também": "and", "ou então": "or", "não é": "is not",
-  "é": "is", "não": "not", "e": "and", "ou": "or",
-  "maior ou igual a": ">=", "menor ou igual a": "<=",
-  "maior ou igual": ">=", "menor ou igual": "<=",
-  "maior que": ">", "menor que": "<", "diferente de": "!=",
-  "igual a": "==", "fora de": "not in", "dentro de": "in",
-  "mais": "+", "menos": "-", "vezes": "*", "dividido por": "/",
-  "resto": "%", "potência": "**", "elevado a": "**",
-  "inteiro": "int", "decimal": "float", "texto": "str",
-  "booleano": "bool", "lista": "list", "dicionário": "dict",
-  "tupla": "tuple", "conjunto": "set",
-  "mostrar": "print", "imprimir": "print",
-  "pergunte": "input", "pergunta": "input",
-  "intervalo": "range", "tamanho": "len", "comprimento": "len",
-  "tipo": "type", "é instância": "isinstance", "é subclasse": "issubclass",
-  "somar": "sum", "máximo": "max", "mínimo": "min",
-  "ordenar": "sorted", "inverter": "reversed", "filtrar": "filter",
-  "mapear": "map", "zipar": "zip", "enumerar": "enumerate",
-  "todos": "all", "algum": "any",
-  "absoluto": "abs", "arredondar": "round", "elevar": "pow",
-  "hexadecimal": "hex", "octal": "oct", "binário": "bin",
-  "ordinal": "ord", "caractere": "chr",
-  "ajuda": "help", "atributos": "vars", "abrir": "open",
-  "formatar": "format", "representar": "repr",
-  "maiúsculas": "upper", "minúsculas": "lower",
-  "capitalizar": "capitalize", "título": "title",
-  "trocar": "replace", "dividir": "split", "juntar": "join",
-  "tirar espaços": "strip", "começa com": "startswith",
-  "termina com": "endswith", "encontrar": "find", "contar": "count",
-  "é dígito": "isdigit", "é letra": "isalpha", "é espaço": "isspace",
-  "adicionar": "append", "estender": "extend", "inserir": "insert",
-  "remover": "remove", "tirar": "pop", "limpar": "clear",
-  "copiar": "copy", "índice": "index",
-  "ordenar em ordem": "sort", "inverter ordem": "reverse",
-  "chaves": "keys", "valores": "values", "itens": "items",
-  "pegar": "get", "atualizar": "update",
-  "matemática": "math", "aleatório": "random",
-  "data e hora": "datetime", "tempo": "time",
-  "sistema": "os", "caminho": "path", "arquivo": "file",
-  "requisição": "request", "resposta": "response",
+  "senão se": "elif",
+  "senãose": "elif",
+  "senão": "else",
+  "enquanto verdadeiro": "while True",
+  "enquanto": "while",
+  "para cada": "for",
+  "para": "for",
+  "se": "if",
+  "em": "in",
+  "quebrar": "break",
+  "continuar": "continue",
+  "passar": "pass",
+  "com": "with",
+  "como": "as",
+  "finalmente": "finally",
+  "função": "def",
+  "classe": "class",
+  "retornar verdadeiro": "return True",
+  "retornar falso": "return False",
+  "retornar nulo": "return None",
+  "retornar": "return",
+  "produzir": "yield",
+  "assíncrono": "async",
+  "aguardar": "await",
+  "importar": "import",
+  "de": "from",
+  "tentar": "try",
+  "excepto": "except",
+  "levantar": "raise",
+  "afirmar": "assert",
+  "verificar": "assert",
+  "lançar": "raise",
+  "global": "global",
+  "nãolocal": "nonlocal",
+  "verdadeiro": "True",
+  "falso": "False",
+  "nulo": "None",
+  "vazio": "pass",
+  "nada": "None",
+  "e também": "and",
+  "ou então": "or",
+  "não é": "is not",
+  "é": "is",
+  "não": "not",
+  "e": "and",
+  "ou": "or",
+  "maior ou igual a": ">=",
+  "menor ou igual a": "<=",
+  "maior ou igual": ">=",
+  "menor ou igual": "<=",
+  "maior que": ">",
+  "menor que": "<",
+  "diferente de": "!=",
+  "igual a": "==",
+  "fora de": "not in",
+  "dentro de": "in",
+  "mais": "+",
+  "menos": "-",
+  "vezes": "*",
+  "dividido por": "/",
+  "resto": "%",
+  "potência": "**",
+  "elevado a": "**",
+  "inteiro": "int",
+  "decimal": "float",
+  "texto": "str",
+  "booleano": "bool",
+  "lista": "list",
+  "dicionário": "dict",
+  "tupla": "tuple",
+  "conjunto": "set",
+  "mostrar": "print",
+  "imprimir": "print",
+  "pergunte": "input",
+  "pergunta": "input",
+  "intervalo": "range",
+  "tamanho": "size",
+  "comprimento": "len",
+  "tipo": "type",
+  "é instância": "isinstance",
+  "é subclasse": "issubclass",
+  "somar": "sum",
+  "máximo": "max",
+  "mínimo": "min",
+  "ordenar": "sorted",
+  "inverter": "reversed",
+  "filtrar": "filter",
+  "mapear": "map",
+  "zipar": "zip",
+  "enumerar": "enumerate",
+  "todos": "all",
+  "algum": "any",
+  "absoluto": "abs",
+  "arredondar": "round",
+  "elevar": "pow",
+  "hexadecimal": "hex",
+  "octal": "oct",
+  "binário": "bin",
+  "ordinal": "ord",
+  "caractere": "chr",
+  "ajuda": "help",
+  "atributos": "vars",
+  "abrir": "open",
+  "formatar": "format",
+  "representar": "repr",
+  "maiúsculas": "upper",
+  "minúsculas": "lower",
+  "capitalizar": "capitalize",
+  "título": "title",
+  "trocar": "replace",
+  "dividir": "split",
+  "juntar": "join",
+  "tirar espaços": "strip",
+  "começa com": "startswith",
+  "termina com": "endswith",
+  "encontrar": "find",
+  "contar": "count",
+  "é dígito": "isdigit",
+  "é letra": "isalpha",
+  "é espaço": "isspace",
+  "adicionar": "add",
+  "estender": "extend",
+  "inserir": "insert",
+  "remover": "remove",
+  "tirar": "pop",
+  "limpar": "clear",
+  "copiar": "copy",
+  "índice": "index",
+  "ordenar em ordem": "sort",
+  "inverter ordem": "reverse",
+  "chaves": "keys",
+  "valores": "values",
+  "itens": "items",
+  "pegar": "get",
+  "atualizar": "update",
+  "matemática": "math",
+  "aleatório": "random",
+  "data e hora": "datetime",
+  "tempo": "time",
+  "sistema": "os",
+  "caminho": "path",
+  "arquivo": "file",
+  "requisição": "request",
+  "resposta": "response",
   "expressão regular": "re",
-  "mais igual": "+=", "menos igual": "-=", "vezes igual": "*=",
-  "dividido igual": "/=", "resto igual": "%=", "potência igual": "**=",
-  "iniciar_jogo": "pygame.init", "sair_jogo": "pygame.quit",
-  "definir_modo": "pygame.display.set_mode",
-  "definir_titulo": "pygame.display.set_caption",
-  "atualizar_tela": "pygame.display.flip",
-  "preencher": "fill", "colar": "blit",
-  "SAIR": "pygame.QUIT", "TECLA_PRESSIONADA": "pygame.KEYDOWN",
-  "TECLA_SOLTA": "pygame.KEYUP",
-  "K_ESQUERDA": "pygame.K_LEFT", "K_DIREITA": "pygame.K_RIGHT",
-  "K_CIMA": "pygame.K_UP", "K_BAIXO": "pygame.K_DOWN",
-  "K_ESPACO": "pygame.K_SPACE", "K_ESCAPE": "pygame.K_ESCAPE",
-  "VERMELHO": "RED", "VERDE": "GREEN", "AZUL": "BLUE",
-  "AMARELO": "YELLOW", "BRANCO": "WHITE", "PRETO": "BLACK"
+  "mais igual": "+=",
+  "menos igual": "-=",
+  "vezes igual": "*=",
+  "dividido igual": "/=",
+  "resto igual": "%=",
+  "potência igual": "**=",
+  "parar": "stop",
+  "iniciar": "start",
+  "saida": "exit",
+  "janela": "display",
+  "evento": "event",
+  "desenho": "draw",
+  "imagem": "image",
+  "fonte": "font",
+  "som": "mixer",
+  "musica": "music",
+  "tempo_jogo": "time",
+  "transformar": "transform",
+  "tecla": "key",
+  "mouse": "mouse",
+  "joystick": "joystick",
+  "sprite": "sprite",
+  "superficie": "surface",
+  "retangulo": "rect",
+  "cor": "color",
+  "array_som": "sndarray",
+  "Superficie": "Surface",
+  "Retangulo": "Rect",
+  "Sprite": "Sprite",
+  "Grupo": "Group",
+  "Fonte": "Font",
+  "Som": "Sound",
+  "Relogio": "Clock",
+  "Evento": "Event",
+  "Cor": "Color",
+  "Vetor2": "Vector2",
+  "iniciar_jogo": "init",
+  "sair_jogo": "quit",
+  "definir_modo": "set_mode",
+  "definir_titulo": "set_caption",
+  "atualizar_tela": "flip",
+  "preencher": "fill",
+  "colar": "blit",
+  "desenhar": "draw",
+  "carregar": "load",
+  "tocar": "play",
+  "parar_som": "stop",
+  "pausar": "pause",
+  "despausar": "unpause",
+  "pegar_retangulo": "get_rect",
+  "pegar_teclas": "get_pressed",
+  "pegar_posicao": "get_pos",
+  "definir_temporizador": "set_timer",
+  "pegar_ticks": "get_ticks",
+  "esperar": "wait",
+  "atrasar": "delay",
+  "marcar": "tick",
+  "circulo": "circle",
+  "linha": "line",
+  "elipse": "ellipse",
+  "poligono": "polygon",
+  "arco": "arc",
+  "renderizar": "render",
+  "colidir_ponto": "collidepoint",
+  "colidir_retangulo": "colliderect",
+  "colidir_circulo": "collidecircle",
+  "mover": "move",
+  "rotacionar": "rotate",
+  "escalar": "scale",
+  "espelhar": "flip",
+  "SAIR": "QUIT",
+  "TECLA_PRESSIONADA": "KEYDOWN",
+  "TECLA_SOLTA": "KEYUP",
+  "BOTAO_MOUSE_PRESSIONADO": "MOUSEBUTTONDOWN",
+  "BOTAO_MOUSE_SOLTO": "MOUSEBUTTONUP",
+  "MOVIMENTO_MOUSE": "MOUSEMOTION",
+  "REDIMENSIONAR_VIDEO": "VIDEORESIZE",
+  "EXPOR_VIDEO": "VIDEOEXPOSE",
+  "EVENTO_ATIVO": "ACTIVEEVENT",
+  "MOVIMENTO_EIXO_JOYSTICK": "JOYAXISMOTION",
+  "MOVIMENTO_BOLA_JOYSTICK": "JOYBALLMOTION",
+  "MOVIMENTO_HAT_JOYSTICK": "JOYHATMOTION",
+  "BOTAO_JOYSTICK_PRESSIONADO": "JOYBUTTONDOWN",
+  "BOTAO_JOYSTICK_SOLTO": "JOYBUTTONUP",
+  "EVENTO_USUARIO": "USEREVENT",
+  "K_ESQUERDA": "K_LEFT",
+  "K_DIREITA": "K_RIGHT",
+  "K_CIMA": "K_UP",
+  "K_BAIXO": "K_DOWN",
+  "K_ESPACO": "K_SPACE",
+  "K_ESCAPE": "K_ESCAPE",
+  "K_ENTER": "K_RETURN",
+  "K_APAGAR": "K_BACKSPACE",
+  "K_TAB": "K_TAB",
+  "K_SHIFT_ESQ": "K_LSHIFT",
+  "K_SHIFT_DIR": "K_RSHIFT",
+  "K_CTRL_ESQ": "K_LCTRL",
+  "K_CTRL_DIR": "K_RCTRL",
+  "VERMELHO": "RED",
+  "VERDE": "GREEN",
+  "AZUL": "BLUE",
+  "AMARELO": "YELLOW",
+  "BRANCO": "WHITE",
+  "PRETO": "BLACK",
+  "CIANO": "CYAN",
+  "MAGENTA": "MAGENTA",
+  "CINZA": "GRAY",
+  "LARANJA": "ORANGE",
+  "ROXO": "PURPLE",
+  "ROSA": "PINK",
+  "largura": "width",
+  "altura": "height",
+  "esquerda": "left",
+  "direita": "right",
+  "topo": "top",
+  "base": "bottom",
+  "centro": "center",
+  "centro_x": "centerx",
+  "centro_y": "centery",
+  "topo_esquerda": "topleft",
+  "topo_direita": "topright",
+  "base_esquerda": "bottomleft",
+  "base_direita": "bottomright",
+  "meio_topo": "midtop",
+  "meio_base": "midbottom",
+  "meio_esquerda": "midleft",
+  "meio_direita": "midright",
+  "x": "x",
+  "y": "y",
+  "w": "w",
+  "h": "h",
+  "definir_volume": "set_volume",
+  "pegar_volume": "get_volume",
+  "pegar_duracao": "get_length",
+  "pegar_ocupado": "get_busy",
+  "desvanecer": "fadeout",
+  "enfileirar": "queue",
+  "definir_evento_final": "set_endevent",
+  "pegar_superficie": "get_surface",
+  "definir_icone": "set_icon",
+  "pegar_titulo": "get_caption",
+  "minimizar": "iconify",
+  "pegar_inicializado": "get_init",
+  "tela": "screen",
+  "posicao": "position",
+  "velocidade": "speed",
+  "angulo": "angle",
+  "raio": "radius",
+  "espessura": "thickness",
+  "borda": "border",
+  "quadro": "frame",
+  "fps": "fps",
+  "laco": "loop",
+  "laco_jogo": "game_loop",
+  "laco_eventos": "event_loop",
+  "colisao": "collision",
+  "gravidade": "gravity",
+  "pulo": "jump",
+  "andar": "walk",
+  "correr": "run",
+  "pontuacao": "score",
+  "nivel": "level",
+  "vidas": "lives",
+  "inimigo": "enemy",
+  "jogador": "player",
+  "bala": "bullet",
+  "powerup": "powerup",
+  "fundo": "background",
+  "frente": "foreground",
+  "animacao": "animation",
+  "textura": "texture",
+  "ladrilho": "tile",
+  "mapa": "map",
+  "jogo": "pygame"
 };
 
 // Métodos: só substituem após ponto
@@ -536,6 +909,169 @@ const METODOS = {
   "pegar": "get", "atualizar": "update"
 };
 
+
+// ============================================================
+// PYGAME — vocabulário contextual do Pyrtugues_code.py
+// ============================================================
+const PYGAME_MODULOS = {
+  "janela": "display",
+  "evento": "event",
+  "desenho": "draw",
+  "imagem": "image",
+  "fonte": "font",
+  "som": "mixer",
+  "musica": "music",
+  "tempo_jogo": "time",
+  "transformar": "transform",
+  "tecla": "key",
+  "mouse": "mouse",
+  "joystick": "joystick",
+  "sprite": "sprite",
+  "superficie": "surface",
+  "retangulo": "rect",
+  "cor": "color",
+  "array_som": "sndarray"
+};
+const PYGAME_FUNCOES = {
+  "iniciar_jogo": "pygame.init",
+  "sair_jogo": "pygame.quit",
+  "definir_modo": "pygame.display.set_mode",
+  "definir_titulo": "pygame.display.set_caption",
+  "atualizar_tela": "pygame.display.flip"
+};
+const PYGAME_METODOS = {
+  "preencher": "fill",
+  "colar": "blit",
+  "desenhar": "draw",
+  "carregar": "load",
+  "tocar": "play",
+  "parar_som": "stop",
+  "pausar": "pause",
+  "despausar": "unpause",
+  "pegar_retangulo": "get_rect",
+  "pegar_teclas": "get_pressed",
+  "pegar_posicao": "get_pos",
+  "pegar": "get",
+  "definir_temporizador": "set_timer",
+  "pegar_ticks": "get_ticks",
+  "esperar": "wait",
+  "atrasar": "delay",
+  "marcar": "tick",
+  "circulo": "circle",
+  "linha": "line",
+  "elipse": "ellipse",
+  "poligono": "polygon",
+  "arco": "arc",
+  "renderizar": "render",
+  "adicionar": "add",
+  "remover": "remove",
+  "colidir_ponto": "collidepoint",
+  "colidir_retangulo": "colliderect",
+  "colidir_circulo": "collidecircle",
+  "mover": "move",
+  "rotacionar": "rotate",
+  "escalar": "scale",
+  "espelhar": "flip",
+  "definir_volume": "set_volume",
+  "pegar_volume": "get_volume",
+  "pegar_duracao": "get_length",
+  "pegar_ocupado": "get_busy",
+  "desvanecer": "fadeout",
+  "enfileirar": "queue",
+  "definir_evento_final": "set_endevent",
+  "pegar_superficie": "get_surface",
+  "definir_icone": "set_icon",
+  "pegar_titulo": "get_caption",
+  "minimizar": "iconify",
+  "pegar_inicializado": "get_init",
+  "atualizar": "update"
+};
+const PYGAME_CLASSES = {
+  "Superficie": "Surface",
+  "Retangulo": "Rect",
+  "Sprite": "Sprite",
+  "Grupo": "Group",
+  "Fonte": "Font",
+  "Som": "Sound",
+  "Relogio": "Clock",
+  "Evento": "Event",
+  "Cor": "Color",
+  "Vetor2": "Vector2"
+};
+const PYGAME_CONSTANTES = {
+  "SAIR": "QUIT",
+  "TECLA_PRESSIONADA": "KEYDOWN",
+  "TECLA_SOLTA": "KEYUP",
+  "BOTAO_MOUSE_PRESSIONADO": "MOUSEBUTTONDOWN",
+  "BOTAO_MOUSE_SOLTO": "MOUSEBUTTONUP",
+  "MOVIMENTO_MOUSE": "MOUSEMOTION",
+  "REDIMENSIONAR_VIDEO": "VIDEORESIZE",
+  "EXPOR_VIDEO": "VIDEOEXPOSE",
+  "EVENTO_ATIVO": "ACTIVEEVENT",
+  "MOVIMENTO_EIXO_JOYSTICK": "JOYAXISMOTION",
+  "MOVIMENTO_BOLA_JOYSTICK": "JOYBALLMOTION",
+  "MOVIMENTO_HAT_JOYSTICK": "JOYHATMOTION",
+  "BOTAO_JOYSTICK_PRESSIONADO": "JOYBUTTONDOWN",
+  "BOTAO_JOYSTICK_SOLTO": "JOYBUTTONUP",
+  "EVENTO_USUARIO": "USEREVENT",
+  "K_ESQUERDA": "K_LEFT",
+  "K_DIREITA": "K_RIGHT",
+  "K_CIMA": "K_UP",
+  "K_BAIXO": "K_DOWN",
+  "K_ESPACO": "K_SPACE",
+  "K_ESCAPE": "K_ESCAPE",
+  "K_ENTER": "K_RETURN",
+  "K_APAGAR": "K_BACKSPACE",
+  "K_TAB": "K_TAB",
+  "K_SHIFT_ESQ": "K_LSHIFT",
+  "K_SHIFT_DIR": "K_RSHIFT",
+  "K_CTRL_ESQ": "K_LCTRL",
+  "K_CTRL_DIR": "K_RCTRL",
+  "VERMELHO": "RED",
+  "VERDE": "GREEN",
+  "AZUL": "BLUE",
+  "AMARELO": "YELLOW",
+  "BRANCO": "WHITE",
+  "PRETO": "BLACK",
+  "CIANO": "CYAN",
+  "MAGENTA": "MAGENTA",
+  "CINZA": "GRAY",
+  "LARANJA": "ORANGE",
+  "ROXO": "PURPLE",
+  "ROSA": "PINK"
+};
+const PYGAME_ATRIBUTOS = {
+  "largura": "width",
+  "altura": "height",
+  "esquerda": "left",
+  "direita": "right",
+  "topo": "top",
+  "base": "bottom",
+  "centro": "center",
+  "centro_x": "centerx",
+  "centro_y": "centery",
+  "topo_esquerda": "topleft",
+  "topo_direita": "topright",
+  "base_esquerda": "bottomleft",
+  "base_direita": "bottomright",
+  "meio_topo": "midtop",
+  "meio_base": "midbottom",
+  "meio_esquerda": "midleft",
+  "meio_direita": "midright",
+  "x": "x",
+  "y": "y",
+  "w": "w",
+  "h": "h"
+};
+const PYGAME_SKIP_DIRETO = new Set([
+  ...Object.keys(PYGAME_MODULOS),
+  ...Object.keys(PYGAME_FUNCOES),
+  ...Object.keys(PYGAME_METODOS),
+  ...Object.keys(PYGAME_CLASSES),
+  ...Object.keys(PYGAME_CONSTANTES),
+  ...Object.keys(PYGAME_ATRIBUTOS)
+]);
+
 // Módulos: só substituem em import/from ou qualificados
 const MODULOS = {
   "matemática": "math", "aleatório": "random",
@@ -548,7 +1084,8 @@ const SKIP_DIRETO = new Set([
   "e","ou","em","pergunte","pergunta","mais","menos","vezes",
   "resto","potência","é",
   ...Object.keys(METODOS), ...Object.keys(MODULOS),
-  "caminho","arquivo","requisição","resposta"
+  "caminho","arquivo","requisição","resposta",
+  ...PYGAME_SKIP_DIRETO
 ]);
 
 function escapeRegex(s) {
@@ -717,7 +1254,7 @@ function aplicarTraducoesBase(codigo) {
       continue;
     }
 
-    if (SKIP_DIRETO.has(br)) continue;
+    if (SKIP_DIRETO.has(br) || PYGAME_SKIP_DIRETO.has(br)) continue;
 
     resultado = substituirPalavra(resultado, br, py);
   }
@@ -776,6 +1313,46 @@ function aplicarTraducoesBase(codigo) {
     operadorContextual(palavra, destino);
   }
 
+  // Pygame: funções de alto nível.
+  for (const [br, py] of Object.entries(PYGAME_FUNCOES)) {
+    resultado = substituirPalavra(resultado, br, py);
+  }
+
+  // Pygame: módulos como pygame.janela -> pygame.display.
+  for (const [br, py] of Object.entries(PYGAME_MODULOS)) {
+    const esc = escapeRegex(br);
+    resultado = resultado.replace(
+      new RegExp(`(?<![A-Za-zÀ-ÿ0-9_])pygame\\.${esc}(?![A-Za-zÀ-ÿ0-9_])`, 'gi'),
+      `pygame.${py}`
+    );
+  }
+
+  // Pygame: métodos, classes e atributos depois do ponto.
+  for (const [br, py] of Object.entries({...PYGAME_METODOS, ...PYGAME_CLASSES, ...PYGAME_ATRIBUTOS})) {
+    const esc = escapeRegex(br);
+    resultado = resultado.replace(
+      new RegExp(`(?<=\\.)\\s*${esc}(?=\\s*(?:\\(|$))`, 'gi'),
+      py
+    );
+  }
+
+  // Constantes Pygame: eventos e teclas ficam qualificados; cores permanecem como aliases do vocabulário original.
+  const constantesQualificadas = new Set([
+    'SAIR','TECLA_PRESSIONADA','TECLA_SOLTA','BOTAO_MOUSE_PRESSIONADO','BOTAO_MOUSE_SOLTO','MOVIMENTO_MOUSE',
+    'REDIMENSIONAR_VIDEO','EXPOR_VIDEO','EVENTO_ATIVO','MOVIMENTO_EIXO_JOYSTICK','MOVIMENTO_BOLA_JOYSTICK','MOVIMENTO_HAT_JOYSTICK',
+    'BOTAO_JOYSTICK_PRESSIONADO','BOTAO_JOYSTICK_SOLTO','EVENTO_USUARIO','K_ESQUERDA','K_DIREITA','K_CIMA','K_BAIXO',
+    'K_ESPACO','K_ESCAPE','K_ENTER','K_APAGAR','K_TAB','K_SHIFT_ESQ','K_SHIFT_DIR','K_CTRL_ESQ','K_CTRL_DIR'
+  ]);
+  for (const [br, py] of Object.entries(PYGAME_CONSTANTES)) {
+    const destino = constantesQualificadas.has(br) ? `pygame.${py}` : py;
+    resultado = resultado.replace(new RegExp(`(?<![A-Za-zÀ-ÿ0-9_.])${escapeRegex(br)}(?![A-Za-zÀ-ÿ0-9_])`, 'gi'), destino);
+  }
+
+  // Classes Pygame usadas sem pygame. continuam utilizáveis em código traduzido.
+  for (const [br, py] of Object.entries(PYGAME_CLASSES)) {
+    resultado = resultado.replace(new RegExp(`(?<![A-Za-zÀ-ÿ0-9_.])${escapeRegex(br)}(?![A-Za-zÀ-ÿ0-9_])`), `pygame.${py}`);
+  }
+
   return resultado;
 }
 
@@ -816,7 +1393,8 @@ const DEFAULT_STATE = {
   licaoAtual:"l1", licoesConcluidas:[], anotacoes:{}, somAtivo:true,
   historicoDatas:[hojeISO()],
   missoes:{ data:hojeISO(), licoesHoje:0, recompensada:false },
-  quizAcertos:[], quizTentativas:{}, execucoesXP:{}, certificado:null
+  quizAcertos:[], quizTentativas:{}, execucoesXP:{}, certificado:null,
+  acessibilidade:{ altoContraste:false, reduzirAnimacoes:false, textoGrande:false, textoConfortavel:false, focoSempreVisivel:false }
 };
 let estado = { ...DEFAULT_STATE };
 
@@ -830,6 +1408,8 @@ function normalizarEstadoAtual(dados) {
   s.quizTentativas = s.quizTentativas && typeof s.quizTentativas === 'object' ? s.quizTentativas : {};
   s.execucoesXP = s.execucoesXP && typeof s.execucoesXP === 'object' ? s.execucoesXP : {};
   s.anotacoes = s.anotacoes && typeof s.anotacoes === 'object' ? s.anotacoes : {};
+  s.acessibilidade = { ...DEFAULT_STATE.acessibilidade, ...(s.acessibilidade || {}) };
+  for (const chave of Object.keys(DEFAULT_STATE.acessibilidade)) s.acessibilidade[chave] = Boolean(s.acessibilidade[chave]);
   const hoje = hojeISO();
   s.missoes = s.missoes && typeof s.missoes === 'object' ? s.missoes : { data:hoje, licoesHoje:0, recompensada:false };
   s.missoes.licoesHoje = Math.min(2, Math.max(0, Number(s.missoes.licoesHoje) || 0));
@@ -887,7 +1467,7 @@ const BADGES = [
   {id:"b6",n:"Perfeccionista",d:"100% nos quizzes",i:"fa-gem",c:"text-pyr-200"}
 ];
 
-let pyodide = null, editorLicao = null, editorSandbox = null, audioCtx = null, inputResolver = null;
+let pyodide = null, editorLicao = null, editorSandbox = null, editorPygame = null, audioCtx = null, inputResolver = null;
 
 function salvarEstado() {
   try {
@@ -934,7 +1514,135 @@ function tocarSom(tipo) {
     else { o.frequency.setValueAtTime(440, n); g.gain.setValueAtTime(0.04, n); g.gain.exponentialRampToValueAtTime(0.001, n+0.1); o.start(n); o.stop(n+0.1); }
   } catch(e){}
 }
+
+
+// ============================================================
+// ACADEMIA PYGAME — trilha extra, fora do certificado de 30 aulas
+// ============================================================
+const PYGAME_AULAS = [
+  {titulo:"1. Abrindo uma janela",tag:"Janela",explicacao:"Todo jogo começa com uma janela. No vocabulário Pyrtugues, você usa iniciar_jogo(), definir_modo() e definir_titulo().",cod:`importar pygame\niniciar_jogo()\njanela = definir_modo((800, 450))\ndefinir_titulo("Meu primeiro jogo")`,dica:"O nome janela pode ser uma variável normal; os comandos de Pygame são os verbos traduzidos."},
+  {titulo:"2. Desenhando",tag:"Desenho",explicacao:"O módulo desenho representa pygame.draw. O comando circulo() vira circle().",cod:`pygame.desenho.circulo(janela, VERMELHO, (120, 120), 50)\npygame.desenho.linha(janela, AZUL, (50, 50), (300, 200), 4)`,dica:"VERMELHO, AZUL e outras cores são atalhos de nomes para constantes do Pygame."},
+  {titulo:"3. Eventos",tag:"Eventos",explicacao:"Eventos permitem descobrir o que aconteceu: fechar a janela, apertar teclas ou mexer o mouse.",cod:`para evento_atual em pygame.evento.pegar():\n    se evento_atual.tipo == SAIR:\n        sair_jogo()`,dica:"evento.pegar() vira event.get(), e SAIR vira pygame.QUIT."},
+  {titulo:"4. Teclado",tag:"Teclado",explicacao:"A tradução mantém os nomes das teclas legíveis. K_ESQUERDA, K_DIREITA, K_CIMA e K_BAIXO viram as constantes do Pygame.",cod:`teclas = pygame.tecla.pegar_teclas()\nse teclas[K_ESQUERDA]:\n    mostrar("Andando para a esquerda")`,dica:"pegar_teclas() vira get_pressed(), permitindo testar várias teclas no loop."},
+  {titulo:"5. Loop e FPS",tag:"Loop",explicacao:"Um jogo precisa repetir: processar eventos, atualizar o estado e desenhar. O Relógio ajuda a controlar a velocidade do loop.",cod:`relogio = pygame.tempo_jogo.Relogio()\n\nenquanto verdadeiro:\n    para evento_atual em pygame.evento.pegar():\n        se evento_atual.tipo == SAIR:\n            sair_jogo()\n    relogio.marcar(60)`,dica:"O vocabulário do arquivo fornecido contém tempo_jogo, Relogio e marcar; aqui você vê como a ideia se encaixa no loop."},
+  {titulo:"6. Mini jogo",tag:"Projeto",explicacao:"Junte entrada, desenho e repetição para construir a base de um jogo simples.",cod:`importar pygame\niniciar_jogo()\njanela = definir_modo((640, 360))\n\nenquanto verdadeiro:\n    para evento_atual em pygame.evento.pegar():\n        se evento_atual.tipo == SAIR:\n            sair_jogo()\n\n    janela.preencher(PRETO)\n    pygame.desenho.circulo(janela, VERDE, (320, 180), 30)\n    atualizar_tela()`,dica:"Essa aula reúne as peças principais: janela, evento, desenho, cor, preenchimento, loop e atualização da tela."}
+];
+
+function renderizarPygameAulas() {
+  const grid = document.getElementById('pygameLessonsGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  PYGAME_AULAS.forEach((aula, i) => {
+    const card = document.createElement('article');
+    card.className = 'bg-ink-800 border-2 border-pyr-900/40 rounded-2xl p-5 flex flex-col gap-3';
+    card.innerHTML = `
+      <div class="flex items-center justify-between gap-2">
+        <span class="text-[10px] font-black uppercase tracking-wider text-pyr-400">${aula.tag}</span>
+        <span class="text-[10px] font-black text-slate-500">EXTRA ${i+1}/6</span>
+      </div>
+      <h3 class="text-lg font-black text-white">${aula.titulo}</h3>
+      <p class="text-sm text-slate-300 leading-relaxed flex-1">${aula.explicacao}</p>
+      <pre class="bg-black border border-ink-600 rounded-xl p-3 text-[11px] text-emerald-300 overflow-auto max-h-40 whitespace-pre-wrap">${escHtml(aula.cod)}</pre>
+      <p class="text-xs text-pyr-200 leading-relaxed"><strong>Dica:</strong> ${aula.dica}</p>
+      <button onclick="carregarExemploPygame(${i})" class="w-full btn-3d bg-pyr-500 hover:bg-pyr-400 text-white border-pyr-700 py-2.5 rounded-xl text-xs font-black">ABRIR NO EDITOR</button>
+    `;
+    grid.appendChild(card);
+  });
+  renderizarPygameMapa();
+}
+function escHtml(v) {
+  return String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function carregarExemploPygame(i) {
+  const aula = PYGAME_AULAS[i] || PYGAME_AULAS[0];
+  if (!editorPygame) return;
+  editorPygame.setValue(aula.cod);
+  editorPygame.focus();
+  traduzirPygameEditor();
+  anunciar(`Exemplo carregado: ${aula.titulo}`);
+}
+function traduzirPygameEditor() {
+  if (!editorPygame) return;
+  const codigo = editorPygame.getValue();
+  const py = traduzirPyrtugues(codigo);
+  const preview = document.getElementById('pygamePythonPreview');
+  if (preview) preview.textContent = py || '# Nada para traduzir.';
+  anunciar('Tradução Pygame atualizada.');
+}
+function copiarPygamePython() {
+  const preview = document.getElementById('pygamePythonPreview');
+  if (!preview) return;
+  navigator.clipboard?.writeText(preview.textContent || '').then(() => mostrarToast('Python copiado!')).catch(() => {
+    const range = document.createRange(); range.selectNodeContents(preview);
+    const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+    mostrarToast('Selecione o texto para copiar.', 'error');
+  });
+}
+function renderizarPygameMapa() {
+  const grid = document.getElementById('pygameDictionaryGrid');
+  if (!grid) return;
+  const itens = [['Janela','pygame.display'],['Evento','pygame.event'],['Desenho','pygame.draw'],['Teclado','pygame.key'],['Cores','pygame.RED / BLUE'],['Tela','Surface / display']];
+  grid.innerHTML = itens.map(([pt,py]) => `<div class="bg-ink-900 border-2 border-ink-600 rounded-xl p-3"><div class="text-xs font-black text-pyr-300">${pt}</div><div class="text-[11px] font-mono text-blue-300 mt-1 break-words">${py}</div></div>`).join('');
+}
+
+// ============================================================
+// ACESSIBILIDADE
+// ============================================================
+function anunciar(msg) {
+  const el = document.getElementById('a11yAnnouncer');
+  if (!el) return;
+  el.textContent = '';
+  requestAnimationFrame(() => { el.textContent = msg; });
+}
+function aplicarAcessibilidade() {
+  const a = estado.acessibilidade || DEFAULT_STATE.acessibilidade;
+  const root = document.documentElement;
+  root.classList.toggle('a11y-high-contrast', !!a.altoContraste);
+  root.classList.toggle('a11y-reduced-motion', !!a.reduzirAnimacoes);
+  root.classList.toggle('a11y-large-text', !!a.textoGrande);
+  root.classList.toggle('a11y-comfort-text', !!a.textoConfortavel);
+  root.classList.toggle('a11y-focus-always', !!a.focoSempreVisivel);
+  document.getElementById('a11yHighContrast') && (document.getElementById('a11yHighContrast').checked = !!a.altoContraste);
+  document.getElementById('a11yReducedMotion') && (document.getElementById('a11yReducedMotion').checked = !!a.reduzirAnimacoes);
+  document.getElementById('a11yLargeText') && (document.getElementById('a11yLargeText').checked = !!a.textoGrande);
+  document.getElementById('a11yComfortText') && (document.getElementById('a11yComfortText').checked = !!a.textoConfortavel);
+  document.getElementById('a11yFocusAlways') && (document.getElementById('a11yFocusAlways').checked = !!a.focoSempreVisivel);
+}
+function alterarAcessibilidade(chave, valor) {
+  estado.acessibilidade = { ...DEFAULT_STATE.acessibilidade, ...(estado.acessibilidade || {}), [chave]: !!valor };
+  salvarEstado(); aplicarAcessibilidade();
+  const nomes = {altoContraste:'Alto contraste', reduzirAnimacoes:'Redução de animações', textoGrande:'Texto maior', textoConfortavel:'Leitura confortável', focoSempreVisivel:'Foco sempre visível'};
+  anunciar(`${nomes[chave] || chave}: ${valor ? 'ativado' : 'desativado'}`);
+}
+function resetarAcessibilidade() {
+  estado.acessibilidade = { ...DEFAULT_STATE.acessibilidade };
+  salvarEstado(); aplicarAcessibilidade(); mostrarToast('Acessibilidade restaurada ao padrão.'); anunciar('Preferências de acessibilidade restauradas.');
+}
+function abrirAcessibilidade() {
+  fecharMenuConfig();
+  lembrarFocoModal('a11yModal');
+  document.getElementById('a11yModal')?.classList.remove('hidden');
+  aplicarAcessibilidade();
+  setTimeout(() => document.getElementById('a11yHighContrast')?.focus(), 20);
+}
+function abrirGuiaAtalhos() {
+  fecharMenuConfig(); lembrarFocoModal('shortcutsModal');
+  document.getElementById('shortcutsModal')?.classList.remove('hidden');
+  setTimeout(() => document.querySelector('#shortcutsModal [data-modal-close], #shortcutsModal button')?.focus(), 20);
+}
+const focoAnteriorModal = {};
+function lembrarFocoModal(id) { focoAnteriorModal[id] = document.activeElement; }
+function restaurarFocoModal(id) {
+  const el = focoAnteriorModal[id];
+  if (el && typeof el.focus === 'function' && document.contains(el)) setTimeout(() => el.focus(), 20);
+  delete focoAnteriorModal[id];
+}
+function modalAberto() {
+  return ['a11yModal','shortcutsModal','dictModal','certModal','inputModal','nomeModal'].find(id => !document.getElementById(id)?.classList.contains('hidden')) || null;
+}
+
 function mostrarToast(msg, tipo = "info") {
+  anunciar(msg);
   const c = document.getElementById('toastContainer');
   const t = document.createElement('div');
   const colors = tipo === 'error' ? 'bg-red-600 border-red-400' : 'bg-ink-700 border-pyr-500/50';
@@ -943,12 +1651,17 @@ function mostrarToast(msg, tipo = "info") {
   c.appendChild(t);
   setTimeout(() => { if (t.parentElement) t.remove(); }, 5000);
 }
+function a11yScrollBehavior() { return estado?.acessibilidade?.reduzirAnimacoes ? 'auto' : 'smooth'; }
 function mudarSecao(id) {
-  ['home','lesson','pratica','perfil'].forEach(s => document.getElementById('sec-'+s)?.classList.add('hidden'));
+  ['home','lesson','pratica','pygame','perfil'].forEach(s => document.getElementById('sec-'+s)?.classList.add('hidden'));
   document.getElementById('sec-'+id)?.classList.remove('hidden');
   if (id === 'pratica' && editorSandbox) setTimeout(() => editorSandbox.refresh(), 100);
   if (window.innerWidth < 768) fecharSidebar();
-  document.getElementById('mainContainer').scrollTo({top:0, behavior:'smooth'});
+  document.getElementById('mainContainer').scrollTo({top:0, behavior: a11yScrollBehavior()});
+  const alvo = document.getElementById(`sec-${id}`);
+  const heading = alvo?.querySelector('h1,h2');
+  if (heading && id !== 'home') { heading.setAttribute('tabindex','-1'); setTimeout(() => heading.focus({preventScroll:true}), 20); }
+  anunciar(`Seção: ${id === 'pygame' ? 'Academia Pygame' : id}`);
 }
 function toggleSidebar() {
   const sb = document.getElementById('sidebar'), ov = document.getElementById('sidebarOverlay');
@@ -1253,6 +1966,7 @@ function appendOutput(txt, tipo) {
 function pedirInputModal() {
   return new Promise(res => {
     inputResolver = res;
+    lembrarFocoModal('inputModal');
     document.getElementById('inputModal').classList.remove('hidden');
     document.getElementById('inputModalText').value = "";
     setTimeout(() => document.getElementById('inputModalText').focus(), 50);
@@ -1295,7 +2009,12 @@ async function executarCodigo(origem) {
   finally { btn.disabled = false; btn.innerHTML = orig; }
 }
 
-function abrirDicionario() { document.getElementById('dictModal').classList.remove('hidden'); renderizarDicionario(); }
+function abrirDicionario() {
+  lembrarFocoModal('dictModal');
+  document.getElementById('dictModal').classList.remove('hidden');
+  renderizarDicionario();
+  setTimeout(() => document.getElementById('dictSearchInput')?.focus(), 20);
+}
 function renderizarDicionario(f = "") {
   const tb = document.getElementById('dictTableBody'); tb.innerHTML = "";
   const ff = f.toLowerCase();
@@ -1308,7 +2027,13 @@ function renderizarDicionario(f = "") {
   });
 }
 function filtrarDicionario() { renderizarDicionario(document.getElementById('dictSearchInput').value); }
-function fecharModal(id) { document.getElementById(id).classList.add('hidden'); }
+function fecharModal(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.add('hidden');
+  restaurarFocoModal(id);
+  anunciar(`Janela fechada: ${id.replace('Modal','')}`);
+}
 
 function gerarCodigoCertificado(nome, dataISO) {
   const base = `PYR|${nome.trim().toUpperCase()}|${dataISO}|30`;
@@ -1326,7 +2051,9 @@ function mostrarCertificado(cert) {
   document.getElementById('certCodigo').textContent = cert.codigo;
   const qrData = encodeURIComponent(`https://pyrtugues.netlify.app/?cert=${cert.codigo}`);
   document.getElementById('certQRCode').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrData}`;
+  lembrarFocoModal('certModal');
   document.getElementById('certModal').classList.remove('hidden');
+  setTimeout(() => document.querySelector('#certModal button[aria-label], #certModal button')?.focus(), 20);
 }
 
 function abrirModalCertificado() {
@@ -1334,6 +2061,7 @@ function abrirModalCertificado() {
   if (estado.certificado && estado.certificado.codigo) {
     mostrarCertificado(estado.certificado);
   } else {
+    lembrarFocoModal('nomeModal');
     document.getElementById('nomeModal').classList.remove('hidden');
     setTimeout(() => document.getElementById('inputNomeCertificado')?.focus(), 50);
   }
@@ -1425,6 +2153,19 @@ function mudarFonte(t) {
 }
 
 document.addEventListener('keydown', e => {
+  const modalId = modalAberto();
+  if (e.altKey && !e.ctrlKey && !e.metaKey && e.key.toLowerCase() === 'a') {
+    e.preventDefault(); abrirAcessibilidade(); return;
+  }
+  if (modalId && e.key === 'Tab') {
+    const modal = document.getElementById(modalId);
+    const focaveis = modal.querySelectorAll('button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [href], [tabindex]:not([tabindex="-1"])');
+    if (focaveis.length) {
+      const primeiro = focaveis[0], ultimo = focaveis[focaveis.length - 1];
+      if (e.shiftKey && document.activeElement === primeiro) { e.preventDefault(); ultimo.focus(); }
+      else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primeiro.focus(); }
+    }
+  }
   if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); salvarEstado(); mostrarToast("Progresso salvo!"); }
   if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
     e.preventDefault();
@@ -1433,7 +2174,7 @@ document.addEventListener('keydown', e => {
     else if (!document.getElementById('sec-pratica').classList.contains('hidden')) executarCodigo('sandbox');
   }
   if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); document.getElementById('searchInput').focus(); }
-  if (e.key === 'Escape') { ['dictModal','certModal','inputModal','nomeModal'].forEach(fecharModal); fecharMenuConfig(); }
+  if (e.key === 'Escape') { const top = modalAberto(); if (top) fecharModal(top); else fecharMenuConfig(); }
 });
 document.addEventListener('click', e => {
   if (!e.target.closest('#menuConfig') && !e.target.closest('button[onclick*="toggleMenuConfig"]')) fecharMenuConfig();
@@ -1447,13 +2188,25 @@ document.getElementById('mainContainer')?.addEventListener('scroll', () => {
 window.addEventListener('DOMContentLoaded', () => {
   carregarEstado(); processarStreak(); processarMissoes();
   estado = normalizarEstadoAtual(estado);
+  aplicarAcessibilidade();
   editorLicao = CodeMirror.fromTextArea(document.getElementById('lessonCodeEditor'), {
     mode:'python', theme:'dracula', lineNumbers:true, indentUnit:4, tabSize:4, viewportMargin:Infinity, autoCloseBrackets:true
   });
   editorSandbox = CodeMirror.fromTextArea(document.getElementById('sandboxCodeEditor'), {
     mode:'python', theme:'dracula', lineNumbers:true, indentUnit:4, tabSize:4, viewportMargin:Infinity, autoCloseBrackets:true
   });
+  editorPygame = CodeMirror.fromTextArea(document.getElementById('pygameCodeEditor'), {
+    mode:'python', theme:'dracula', lineNumbers:true, indentUnit:4, tabSize:4, viewportMargin:Infinity, autoCloseBrackets:true
+  });
+  [editorLicao, editorSandbox, editorPygame].forEach((ed, i) => {
+    if (!ed) return;
+    ed.getWrapperElement().setAttribute('role','textbox');
+    ed.getWrapperElement().setAttribute('aria-multiline','true');
+    ed.getWrapperElement().setAttribute('aria-label', i === 0 ? 'Editor da lição em Pyrtugues' : i === 1 ? 'Editor Sandbox em Pyrtugues' : 'Editor de exemplos Pygame em Pyrtugues');
+  });
   editorSandbox.setValue('mostrar("Olá, Sandbox!")\nx = 10\ny = 20\nmostrar(f"Soma: {x mais y}")');
+  renderizarPygameAulas();
+  carregarExemploPygame(0);
   renderizarListaLicoes(); renderizarHome(); renderizarHeatmap(); atualizarMissoes(); renderizarBadges(); renderizarHeader();
   document.getElementById('btnSound').innerHTML = estado.somAtivo ? '<i class="fa-solid fa-volume-high text-pyr-400"></i>' : '<i class="fa-solid fa-volume-xmark text-ink-500"></i>';
   inicializarPyodide();
